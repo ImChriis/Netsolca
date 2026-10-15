@@ -1,0 +1,31 @@
+---
+/** Ficha completa de un proyecto en /proyectos (ancla #id). */
+import type { Project } from '../data/projects';
+import { photoUrl } from '../data/site';
+
+interface Props {
+  project: Project;
+}
+const { project } = Astro.props;
+---
+<article class="detail detail--project" id={project.id} aria-labelledby={`${project.id}-title`}>
+  <figure class="detail__media">
+    <img src={photoUrl(project.photo, 900, 700)} alt={project.alt} width="900" height="700" loading="lazy" decoding="async" />
+  </figure>
+  <div class="detail__body">
+    <p class="detail__sub">{project.sector}</p>
+    <h2 class="detail__title" id={`${project.id}-title`}>{project.title}</h2>
+    <p class="detail__client">Cliente: {project.client}</p>
+    <h3 class="detail__label">El reto</h3>
+    <p class="detail__intro">{project.challenge}</p>
+    <h3 class="detail__label">Lo que hicimos</h3>
+    <ul class="check-list" role="list">
+      {project.solution.map((item) => <li>{item}</li>)}
+    </ul>
+    <h3 class="detail__label">Resultados</h3>
+    <p class="detail__intro">{project.results}</p>
+    <div class="detail__actions">
+      <a class="btn btn--primary" href="/#cotizar">Quiero un proyecto así</a>
+    </div>
+  </div>
+</article>

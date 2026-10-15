@@ -1,0 +1,116 @@
+/* =========================================================
+   MAPA INTERACTIVO · Leaflet + OpenStreetMap
+   ========================================================= */
+.map {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  height: clamp(340px, 38vw, 460px);
+  margin-top: clamp(3rem, 2rem + 3vw, 4.5rem);
+  border-radius: 24px;
+  background:
+    linear-gradient(rgb(10 22 64 / 0.04) 1px, transparent 1px) 0 0 / 32px 32px,
+    linear-gradient(90deg, rgb(10 22 64 / 0.04) 1px, transparent 1px) 0 0 / 32px 32px,
+    var(--mist-200);
+}
+.map__canvas { position: absolute; inset: 0; z-index: 0; }
+/* Mapa en grises suaves: el marcador de la marca es lo único con color */
+.map__canvas .leaflet-tile-pane { filter: grayscale(1) brightness(1.05) contrast(0.88); }
+.map__canvas .leaflet-container,
+.map__canvas.leaflet-container { font-family: var(--font-body); background: var(--mist-200); }
+
+/* Tarjeta flotante con los datos y la acción principal */
+.map__card {
+  position: absolute;
+  z-index: 800;
+  top: 1.5rem;
+  left: 1.5rem;
+  display: grid;
+  gap: 0.3rem;
+  max-width: 300px;
+  padding: 1.25rem 1.35rem;
+  border-radius: 18px;
+  background: rgb(255 255 255 / 0.94);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-md);
+}
+.map__name { font-family: var(--font-display); font-weight: 700; font-size: var(--fs-lg); color: var(--ink); }
+.map__address { color: var(--text); }
+.map__hours { display: inline-flex; align-items: center; gap: 0.5rem; font-size: var(--fs-sm); font-weight: 600; color: var(--green-700); }
+.map__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; margin-top: 0.75rem; }
+.map__recenter { min-height: 42px; font-size: var(--fs-sm); font-weight: 600; color: var(--cyan-600); text-decoration: underline; text-underline-offset: 3px; }
+.btn__pin { width: 18px; height: 18px; flex: none; }
+
+/* Marcador propio: la "N" de NETSOLCA con un pulso cian */
+.map-pin { position: relative; display: grid; place-items: center; width: 52px; height: 52px; }
+.map-pin::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgb(24 200 240 / 0.35);
+  animation: map-pulse 2.4s var(--ease-out) infinite;
+}
+.map-pin span {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--navy-900);
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow: 0 8px 18px -6px rgb(10 22 64 / 0.6);
+}
+.map-pin img { width: 26px; height: 26px; border-radius: 50%; }
+@keyframes map-pulse {
+  from { transform: scale(0.6); opacity: 0.9; }
+  to { transform: scale(1.9); opacity: 0; }
+}
+
+.leaflet-popup-content-wrapper { border-radius: 14px; box-shadow: var(--shadow-md); }
+.leaflet-popup-content { margin: 0.9rem 1rem; font-size: var(--fs-sm); line-height: 1.45; color: var(--text); }
+.leaflet-popup-content strong { color: var(--ink); }
+.leaflet-popup-content a { color: var(--cyan-600); font-weight: 600; }
+.leaflet-control-zoom a { color: var(--navy-900) !important; }
+
+/* Aviso para activar el zoom con la rueda (evita secuestrar el scroll) */
+.map__hint {
+  position: absolute;
+  z-index: 790;
+  right: 1rem;
+  top: 1rem;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  background: rgb(10 22 64 / 0.78);
+  color: var(--white);
+  font-size: var(--fs-xs);
+  pointer-events: none;
+  transition: opacity var(--dur);
+}
+.map.is-active .map__hint { opacity: 0; }
+
+/* Respaldo si el mapa no carga */
+.map__fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+.map__fallback a { color: var(--cyan-600); font-weight: 600; }
+
+@media (max-width: 639.98px) {
+  .map { display: grid; height: auto; }
+  .map__canvas { position: relative; height: 300px; }
+  .map__card { position: static; max-width: none; border-radius: 0; box-shadow: none; }
+  .map__hint { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .map-pin::before { animation: none; }
+}

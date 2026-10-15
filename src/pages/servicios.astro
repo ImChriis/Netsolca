@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SystemCard from '../components/SystemCard.astro';
+import ServiceDetail from '../components/ServiceDetail.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { services } from '../data/services';
+
+const site = Astro.site ?? new URL('https://www.netsolca.com');
+const url = new URL('/servicios', site).href;
+
+const groups = [
+  {
+    id: 'sistemas',
+    title: 'Sistemas a la medida',
+    lead: 'Software para administrar, producir y vender, hecho según cómo trabaja tu empresa.',
+  },
+  {
+    id: 'presencia',
+    title: 'Presencia en línea y soporte',
+    lead: 'Todo lo necesario para que tu empresa esté en internet y funcione sin interrupciones.',
+  },
+] as const;
+
+// Datos estructurados: lista de servicios + migas de pan
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Servicios de NETSOLCA',
+    itemListElement: services.map((s, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'Service',
+        '@id': `${url}#${s.id}`,
+        name: `${s.title}: ${s.subtitle}`,
+        description: s.intro,
+        url: `${url}#${s.id}`,
+        provider: { '@id': new URL('/#organizacion', site).href },
+        areaServed: { '@type': 'Country', name: 'Venezuela' },
+      },
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: new URL('/', site).href },
+      { '@type': 'ListItem', position: 2, name: 'Servicios', item: url },
+    ],
+  },
+];
+---
+<BaseLayout
+  title="Servicios: ERP, MRP, CRM, páginas web y tiendas en línea | NETSOLCA"
+  description="ERP, MRP, CRM, hosting en la nube, páginas web, tiendas en línea, soporte 24/7 y redes para empresas. Desarrollo de software a la medida en Maracaibo, Venezuela."
+  current="servicios"
+  subpage
+  schema={schema}
+>
+  <PageHero
+    crumb="Servicios"
+    title="Servicios"
+    lead="Desarrollamos el software con el que tu empresa vende, produce y administra, y lo mantenemos funcionando todos los días."
+  />
+
+  <section class="systems systems--overview" aria-label="Todos los servicios">
+    <ul class="systems__grid" role="list" data-reveal>
+      {services.map((service) => <SystemCard service={service} href={`#${service.id}`} />)}
+    </ul>
+  </section>
+
+  {groups.map((group, i) => (
+    <section class:list={['section', 'details', { 'section--mist': i % 2 === 1 }]} aria-labelledby={`g-${group.id}`}>
+      <div class="container">
+        <header class="section-head section-head--split" data-reveal>
+          <h2 class="section-title" id={`g-${group.id}`}>{group.title}</h2>
+          <p class="section-lead">{group.lead}</p>
+        </header>
+        <div class="details__list">
+          {services.filter((s) => s.group === group.id).map((service) => <ServiceDetail service={service} />)}
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <CtaBand />
+</BaseLayout>

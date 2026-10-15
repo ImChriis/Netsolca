@@ -1,0 +1,39 @@
+/* =========================================================
+   Botón flotante de WhatsApp
+   Verde de marca con glifo azul: mantiene contraste AA (9:1).
+   ========================================================= */
+.wa-float {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  height: 60px;
+  padding: 0 17px;
+  border-radius: 999px;
+  background: var(--green-400);
+  color: var(--navy-900);
+  text-decoration: none;
+  box-shadow: 0 14px 30px -10px rgb(10 22 64 / 0.45), 0 0 0 4px rgb(255 255 255 / 0.9);
+  transition: transform var(--dur) var(--ease-out), box-shadow var(--dur), opacity var(--dur), visibility var(--dur);
+}
+.wa-float svg { width: 26px; height: 26px; flex: none; }
+.wa-float__label {
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  transition: max-width 0.4s var(--ease-out), margin 0.4s var(--ease-out);
+}
+@media (hover: hover) {
+  .wa-float:hover { transform: translateY(-3px); }
+  .wa-float:hover .wa-float__label { max-width: 8rem; margin-left: 0.6rem; }
+}
+.wa-float:focus-visible .wa-float__label { max-width: 8rem; margin-left: 0.6rem; }
+.wa-float:active { transform: scale(0.96); }
+
+/* Se oculta con el menú móvil abierto */
+html.menu-open .wa-float { opacity: 0; visibility: hidden; }

@@ -1,0 +1,65 @@
+/* =========================================================
+   PÁGINAS LEGALES · lectura cómoda, una columna centrada
+   ========================================================= */
+.legal-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgb(255 255 255 / 0.92);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--mist-200);
+}
+.legal-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 70px;
+}
+.legal-header__brand img { height: 32px; width: auto; mix-blend-mode: multiply; }
+.legal-header__back { font-weight: 600; color: var(--cyan-600); text-decoration: none; }
+.legal-header__back:hover { text-decoration: underline; }
+
+.legal {
+  padding-block: clamp(3rem, 2rem + 4vw, 5.5rem);
+  background: var(--mist-100);
+}
+.legal__doc {
+  max-width: 46rem;
+  margin-inline: auto;
+  padding: clamp(1.5rem, 1rem + 3vw, 3.25rem);
+  border: 1px solid var(--mist-200);
+  border-radius: var(--radius-lg);
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+.legal__doc h1 { font-size: var(--fs-2xl); margin-bottom: 0.5rem; }
+.legal__updated { color: var(--text-muted); font-size: var(--fs-sm); margin-bottom: 1.5rem; }
+.legal__note {
+  margin-bottom: 2rem;
+  padding: 0.9rem 1.1rem;
+  border-left: 3px solid #FFC94D;
+  border-radius: 0 10px 10px 0;
+  background: #FFF9E8;
+  font-size: var(--fs-sm);
+  color: #6B4E00;
+}
+.legal__doc h2 { font-size: var(--fs-lg); margin: 2rem 0 0.6rem; }
+.legal__doc p,
+.legal__doc li { color: var(--text); }
+.legal__doc p + p { margin-top: 0.75rem; }
+.legal__doc ul { padding-left: 1.25rem; display: grid; gap: 0.4rem; }
+.legal__doc a { color: var(--cyan-600); }
+
+.legal-footer {
+  padding-block: 1.75rem 6rem;
+  background: var(--navy-950);
+  color: var(--text-on-dark-muted);
+  font-size: var(--fs-xs);
+}
+.legal-footer__inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem 1.5rem; }
+.legal-footer a { color: inherit; }
+.legal-footer a:hover,
+.legal-footer a[aria-current] { color: var(--white); }
+.legal-footer ul { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; }

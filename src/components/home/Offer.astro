@@ -1,0 +1,29 @@
+---
+import { WHATSAPP_URL } from '../../data/site';
+---
+<!-- ============ OFERTA: diagnóstico y asesoría ============ -->
+<section class="offer" aria-labelledby="offer-title">
+  <div class="container offer__inner" data-reveal>
+    <h2 class="offer__title" id="offer-title">Empieza sin costo</h2>
+    <ul class="offer__list" role="list">
+      <li>
+        <span class="offer__icon"><svg aria-hidden="true"><use href="#i-search"/></svg></span>
+        <div>
+          <h3>Diagnóstico gratis</h3>
+          <p>Revisamos cómo trabaja tu empresa hoy y te decimos qué conviene mejorar.</p>
+        </div>
+      </li>
+      <li>
+        <span class="offer__icon"><svg aria-hidden="true"><use href="#i-chat"/></svg></span>
+        <div>
+          <h3>Asesoría personalizada</h3>
+          <p>Un especialista te ayuda a elegir la solución adecuada a tu presupuesto.</p>
+        </div>
+      </li>
+    </ul>
+    <a class="btn btn--primary btn--lg" href={WHATSAPP_URL} data-whatsapp>
+      <svg class="btn__wa" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+      Agendar diagnóstico gratis
+    </a>
+  </div>
+</section>

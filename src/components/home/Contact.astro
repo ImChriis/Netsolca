@@ -1,0 +1,45 @@
+---
+/** Contacto del inicio: datos + formulario. El mapa está en /contacto. */
+import { SITE, WHATSAPP_URL } from '../../data/site';
+import ContactForm from '../ContactForm.astro';
+import SocialLinks from '../SocialLinks.astro';
+---
+<!-- ============ CONTACTO ============ -->
+<section class="section section--mist contact" id="contacto" aria-labelledby="contacto-title" data-section="contacto">
+  <div class="container contact__grid">
+    <aside class="contact__info on-dark" aria-labelledby="contacto-title" data-reveal>
+      <h2 class="section-title" id="contacto-title">Hablemos de tu proyecto</h2>
+      <p class="contact__lead">La forma más rápida es WhatsApp. Te respondemos a cualquier hora.</p>
+
+      <a class="btn btn--primary btn--lg contact__whatsapp" href={WHATSAPP_URL} data-whatsapp>
+        <svg class="btn__wa" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+        Escribir por WhatsApp
+      </a>
+
+      <ul class="contact__list" role="list">
+        <li>
+          <span class="contact__icon"><svg aria-hidden="true"><use href="#i-phone"/></svg></span>
+          <span><small>Teléfono</small><a href={`tel:${SITE.phoneIntl}`}>{SITE.phone}</a></span>
+        </li>
+        <li>
+          <span class="contact__icon"><svg aria-hidden="true"><use href="#i-mail"/></svg></span>
+          <span><small>Correo</small><a href={`mailto:${SITE.email}`}>{SITE.email}</a></span>
+        </li>
+        <li>
+          <span class="contact__icon"><svg aria-hidden="true"><use href="#i-pin"/></svg></span>
+          <span><small>Dirección</small><a href="/contacto#ubicacion">Maracaibo, estado Zulia · Ver mapa</a></span>
+        </li>
+        <li>
+          <span class="contact__icon"><svg aria-hidden="true"><use href="#i-clock"/></svg></span>
+          <span><small>Horario</small>24 horas, los 7 días de la semana</span>
+        </li>
+      </ul>
+
+      <SocialLinks />
+    </aside>
+
+    <div class="contact__form-wrap" data-reveal>
+      <ContactForm />
+    </div>
+  </div>
+</section>

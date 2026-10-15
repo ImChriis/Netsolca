@@ -1,0 +1,33 @@
+---
+/** Ficha completa de un servicio en /servicios (ancla #id). */
+import type { Service } from '../data/services';
+import { photoUrl, WHATSAPP_URL } from '../data/site';
+
+interface Props {
+  service: Service;
+}
+const { service } = Astro.props;
+---
+<article class="detail" id={service.id} aria-labelledby={`${service.id}-title`}>
+  <figure class="detail__media">
+    <img src={photoUrl(service.photo, 900, 700)} alt="" width="900" height="700" loading="lazy" decoding="async" />
+  </figure>
+  <div class="detail__body">
+    <span class="detail__icon"><svg aria-hidden="true"><use href={`#${service.icon}`} /></svg></span>
+    <h3 class="detail__title" id={`${service.id}-title`}>{service.title}</h3>
+    <p class="detail__sub">{service.subtitle}</p>
+    <p class="detail__intro">{service.intro}</p>
+    <h4 class="detail__label">Qué incluye</h4>
+    <ul class="check-list" role="list">
+      {service.includes.map((item) => <li>{item}</li>)}
+    </ul>
+    <p class="detail__ideal"><strong>Ideal si:</strong> {service.idealFor}</p>
+    <div class="detail__actions">
+      <a class="btn btn--primary" href={WHATSAPP_URL} data-whatsapp>
+        <svg class="btn__wa" aria-hidden="true"><use href="#i-whatsapp" /></svg>
+        Solicitar diagnóstico gratis
+      </a>
+      <a class="link-trace" href="/#cotizar">Cotizar <svg class="link-trace__icon" aria-hidden="true"><use href="#i-trace" /></svg></a>
+    </div>
+  </div>
+</article>

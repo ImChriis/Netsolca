@@ -1,0 +1,102 @@
+/* =========================================================
+   POR QUÉ ELEGIRNOS · sección centrada sobre azul profundo
+   ========================================================= */
+.why { overflow: clip; isolation: isolate; text-align: center; }
+.why__glow {
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: -30%;
+  width: min(900px, 120%);
+  aspect-ratio: 1;
+  translate: -50% 0;
+  background: radial-gradient(closest-side, rgb(24 200 240 / 0.16), transparent);
+  pointer-events: none;
+}
+.why::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(70% 60% at 50% 40%, #000, transparent 75%);
+  mask-image: radial-gradient(70% 60% at 50% 40%, #000, transparent 75%);
+}
+
+/* Métricas grandes, centradas */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 900px;
+  margin: 0 auto clamp(3rem, 2rem + 3vw, 4.5rem);
+}
+/* La cifra va primero visualmente (dt/dd conserva el orden semántico) */
+.metric {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 0.6rem;
+  padding: 0.5rem 1.25rem;
+}
+.metric + .metric { border-left: 1px solid rgb(255 255 255 / 0.12); }
+.metric__value {
+  order: -1;
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 108%;
+  font-size: clamp(3rem, 2rem + 3.6vw, 5rem);
+  line-height: 1;
+  color: var(--cyan-400);
+  font-variant-numeric: tabular-nums;
+}
+.metric__label {
+  max-width: 18ch;
+  font-size: var(--fs-sm);
+  line-height: 1.4;
+  color: var(--text-on-dark-muted);
+}
+
+/* Ventajas: tres columnas cortas */
+.advantages {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+  max-width: 1040px;
+  margin-inline: auto;
+}
+.advantage {
+  display: grid;
+  justify-items: center;
+  gap: 0.65rem;
+  padding: 0.5rem 1rem;
+}
+.advantage__icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 0.25rem;
+  border: 1px solid rgb(24 200 240 / 0.35);
+  border-radius: 14px;
+  background: rgb(24 200 240 / 0.06);
+  color: var(--cyan-400);
+  transition: background-color var(--dur), color var(--dur);
+}
+.advantage__icon svg { width: 26px; height: 26px; }
+.advantage h3 { font-size: var(--fs-xl); }
+.advantage p { color: var(--text-on-dark-muted); max-width: 30ch; }
+@media (hover: hover) {
+  .advantage:hover .advantage__icon { background: var(--cyan-400); color: var(--navy-900); }
+}
+
+@media (max-width: 759.98px) {
+  .advantages { grid-template-columns: 1fr; }
+}
+@media (max-width: 519.98px) {
+  .metrics { grid-template-columns: 1fr; gap: 1.25rem; }
+  .metric + .metric { border-left: 0; border-top: 1px solid rgb(255 255 255 / 0.12); padding-top: 1.5rem; }
+}

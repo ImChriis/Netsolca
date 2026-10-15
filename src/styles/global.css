@@ -1,0 +1,23 @@
+/* Hoja única del sitio: el orden de importación define la cascada. */
+@import './tokens.css';
+@import './base.css';
+@import './components/loader.css';
+@import './components/buttons.css';
+@import './components/header.css';
+@import './components/marquee.css';
+@import './components/accordion.css';
+@import './components/forms.css';
+@import './components/whatsapp.css';
+@import './sections/hero.css';
+@import './sections/systems.css';
+@import './sections/projects.css';
+@import './sections/quote.css';
+@import './sections/about.css';
+@import './sections/why.css';
+@import './sections/clients.css';
+@import './sections/faq.css';
+@import './sections/contact.css';
+@import './sections/map.css';
+@import './sections/footer.css';
+@import './sections/pages.css';
+@import './sections/company.css';

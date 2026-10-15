@@ -1,0 +1,42 @@
+---
+/** "Así trabajamos": 4 pasos con la traza animada (src/scripts/modules/motion.js). */
+interface Props {
+  /** h3 dentro de la sección "Nosotros" del inicio; h2 si es una sección propia */
+  headingLevel?: 'h2' | 'h3';
+}
+const { headingLevel = 'h3' } = Astro.props;
+const Title = headingLevel;
+const Step = headingLevel === 'h2' ? 'h3' : 'h4';
+---
+<!-- Proceso: es una secuencia real, por eso va numerado -->
+<div class="process" data-process data-reveal>
+  <Title class="process__title">Así trabajamos</Title>
+  <div class="process__body">
+  <div class="process__rail" aria-hidden="true">
+    <span class="process__fill" data-process-fill></span>
+    <span class="process__packet" data-process-packet></span>
+  </div>
+  <ol class="process__steps" role="list">
+    <li class="process__step">
+      <span class="process__node" aria-hidden="true">01</span>
+      <Step>Te escuchamos</Step>
+      <p>Conversamos sobre tu negocio y lo que quieres lograr.</p>
+    </li>
+    <li class="process__step">
+      <span class="process__node" aria-hidden="true">02</span>
+      <Step>Te proponemos</Step>
+      <p>Recibes un presupuesto claro, con tiempos y precio.</p>
+    </li>
+    <li class="process__step">
+      <span class="process__node" aria-hidden="true">03</span>
+      <Step>Lo construimos</Step>
+      <p>Te mostramos avances para que opines en cada etapa.</p>
+    </li>
+    <li class="process__step">
+      <span class="process__node" aria-hidden="true">04</span>
+      <Step>Te acompañamos</Step>
+      <p>Soporte 24/7 y mejoras cuando tu negocio crezca.</p>
+    </li>
+  </ol>
+  </div>
+</div>

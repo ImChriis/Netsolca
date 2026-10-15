@@ -1,0 +1,24 @@
+---
+/** Columna de servicio con foto al pasar el mouse (diseño ERP/MRP). */
+import type { Service } from '../data/services';
+import { photoUrl } from '../data/site';
+
+interface Props {
+  service: Service;
+  href: string;
+}
+const { service, href } = Astro.props;
+---
+<li class="system">
+  <img class="system__bg" src={photoUrl(service.photo, 640, 900)} alt="" width="640" height="900" loading="lazy" decoding="async" />
+  <span class="system__icon"><svg aria-hidden="true"><use href={`#${service.icon}`} /></svg></span>
+  <div class="system__body">
+    <h3 class="system__title">{service.title}</h3>
+    <p class="system__sub">{service.subtitle}</p>
+    <p class="system__text">{service.summary}</p>
+    <a class="system__link" href={href}>
+      Conocer más <span class="sr-only">sobre {service.title}</span>
+      <svg aria-hidden="true"><use href="#i-arrow" /></svg>
+    </a>
+  </div>
+</li>

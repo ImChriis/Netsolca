@@ -1,0 +1,47 @@
+---
+import Clients from '../Clients.astro';
+---
+<!-- ============ POR QUÉ ELEGIRNOS (centrado) ============ -->
+<section class="section section--navy why on-dark" id="por-que" aria-labelledby="why-title" data-section="nosotros">
+  <div class="why__glow" aria-hidden="true"></div>
+  <div class="container why__inner">
+    <header class="section-head section-head--center" data-reveal>
+      <h2 class="section-title" id="why-title">Experiencia que se nota, atención que no se apaga</h2>
+    </header>
+
+    <dl class="metrics" data-reveal>
+      <div class="metric">
+        <dt class="metric__label">años de trayectoria</dt>
+        <dd class="metric__value">+<span data-count-to="20">20</span></dd>
+      </div>
+      <div class="metric">
+        <dt class="metric__label">atención y soporte, todos los días</dt>
+        <dd class="metric__value">24/7</dd>
+      </div>
+      <div class="metric">
+        <dt class="metric__label">sistemas hechos a tu medida, no plantillas</dt>
+        <dd class="metric__value">100%</dd>
+      </div>
+    </dl>
+
+    <ul class="advantages" role="list" data-reveal-stagger>
+      <li class="advantage" data-reveal>
+        <span class="advantage__icon"><svg aria-hidden="true"><use href="#i-chat"/></svg></span>
+        <h3>Propuestas claras</h3>
+        <p>Alcance, tiempos y costos por escrito antes de empezar, sin costos ocultos.</p>
+      </li>
+      <li class="advantage" data-reveal>
+        <span class="advantage__icon"><svg aria-hidden="true"><use href="#i-shield"/></svg></span>
+        <h3>Seguro y respaldado</h3>
+        <p>Tu información protegida y con copias de seguridad.</p>
+      </li>
+      <li class="advantage" data-reveal>
+        <span class="advantage__icon"><svg aria-hidden="true"><use href="#i-headset"/></svg></span>
+        <h3>Soporte permanente</h3>
+        <p>Un equipo técnico disponible las 24 horas, los 7 días de la semana.</p>
+      </li>
+    </ul>
+
+    <Clients />
+  </div>
+</section>

@@ -1,0 +1,31 @@
+/* =========================================================
+   Marquee infinito (logos de empresas)
+   js/modules/marquee.js clona el grupo y calcula el desplazamiento.
+   ========================================================= */
+.marquee {
+  --gap: 3.5rem;
+  display: flex;
+  gap: var(--gap);
+  width: max-content;
+}
+.marquee[data-ready] {
+  animation: marquee var(--marquee-duration, 40s) linear infinite;
+}
+.marquee__group {
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+  flex: none;
+}
+@media (hover: hover) {
+  .marquee:hover { animation-play-state: paused; }
+}
+@keyframes marquee {
+  to { transform: translateX(calc(-1 * var(--marquee-shift, 50%))); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee,
+  .marquee[data-ready] { animation: none; width: auto; justify-content: center; }
+  .marquee__group { flex-wrap: wrap; justify-content: center; row-gap: 1.5rem; }
+  .marquee [data-marquee-clone] { display: none; }
+}

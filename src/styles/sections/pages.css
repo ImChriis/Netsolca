@@ -1,0 +1,108 @@
+/* =========================================================
+   PÁGINAS INTERNAS · servicios.html y proyectos.html
+   ========================================================= */
+
+/* Botón "Ver todos…" bajo una sección del inicio */
+.section-more {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(2.5rem, 2rem + 2vw, 3.5rem);
+}
+.systems .section-more { padding-bottom: var(--section-y); }
+
+/* --- Cabecera de página --- */
+.page-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: calc(var(--header-h) + clamp(3rem, 2rem + 4vw, 5rem)) 0 clamp(3rem, 2rem + 3vw, 4.5rem);
+  background:
+    radial-gradient(60% 80% at 85% 10%, rgb(24 200 240 / 0.22), transparent 70%),
+    linear-gradient(165deg, var(--navy-800), var(--navy-950));
+  color: var(--text-on-dark);
+  --focus: var(--cyan-400);
+}
+.page-hero__pattern {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: linear-gradient(to bottom, #000, transparent 90%);
+  mask-image: linear-gradient(to bottom, #000, transparent 90%);
+}
+.page-hero__inner { display: grid; gap: 1rem; }
+.breadcrumb { display: flex; gap: 0.6rem; font-size: var(--fs-sm); color: var(--text-on-dark-muted); }
+.breadcrumb a { color: var(--cyan-300); text-decoration: none; }
+.breadcrumb a:hover { text-decoration: underline; }
+.page-hero__title {
+  font-size: clamp(2.6rem, 1.8rem + 3.4vw, 4.4rem);
+  font-weight: 800;
+  font-stretch: 104%;
+  line-height: 1;
+  color: var(--white);
+}
+.page-hero__lead { max-width: 40rem; font-size: var(--fs-lg); color: var(--text-on-dark-muted); }
+
+/* Grilla de resumen (reutiliza las columnas del inicio) */
+.systems--overview { padding: 0; }
+.systems--overview .systems__grid { border-top: 0; }
+
+/* --- Bloques de detalle (servicio o proyecto) --- */
+.details__list { display: grid; gap: clamp(3.5rem, 2.5rem + 4vw, 6rem); }
+.detail {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+  scroll-margin-top: calc(var(--header-h-scrolled) + 1.5rem);
+}
+/* Alterna imagen a la izquierda / derecha */
+.detail:nth-child(even) .detail__media { order: 2; }
+.detail__media {
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  aspect-ratio: 9 / 7;
+  background: var(--mist-200);
+}
+.detail__media img { width: 100%; height: 100%; object-fit: cover; }
+.detail__body { display: grid; gap: 0.75rem; align-content: start; }
+.detail__icon { color: var(--cyan-600); }
+.detail__icon svg { width: 44px; height: 44px; stroke-width: 1.5; }
+.detail__title { font-size: clamp(1.8rem, 1.4rem + 1.4vw, 2.5rem); line-height: 1.1; }
+.detail__sub { font-family: var(--font-display); font-weight: 600; color: var(--cyan-600); }
+.detail__client { color: var(--text-muted); font-size: var(--fs-sm); }
+.detail__intro { color: var(--text); font-size: var(--fs-md); max-width: 40rem; }
+.detail__label { margin-top: 0.75rem; font-size: var(--fs-md); }
+.detail__ideal {
+  margin-top: 0.5rem;
+  padding: 0.9rem 1.1rem;
+  border-left: 3px solid var(--cyan-400);
+  border-radius: 0 10px 10px 0;
+  background: var(--mist-100);
+  font-size: var(--fs-sm);
+}
+.section--mist .detail__ideal { background: var(--white); }
+.detail__ideal strong { color: var(--ink); }
+.detail__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem; margin-top: 1rem; }
+
+/* Al llegar desde un enlace "Conocer más" / "Ver más" se resalta el bloque */
+.detail:target .detail__title { color: var(--cyan-600); }
+
+.projects--all { padding-top: clamp(3rem, 2rem + 3vw, 4.5rem); }
+
+/* Franja final */
+.offer__lead { max-width: 38rem; color: var(--text-muted); font-size: var(--fs-lg); }
+.offer__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
+
+@media (max-width: 859.98px) {
+  .detail { grid-template-columns: 1fr; }
+  .detail:nth-child(even) .detail__media { order: 0; }
+}
+@media (max-width: 559.98px) {
+  .offer__actions .btn,
+  .detail__actions .btn { width: 100%; }
+}

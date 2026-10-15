@@ -1,0 +1,25 @@
+---
+/** Tres proyectos destacados del inicio + enlace a /proyectos. */
+import ProjectCard from '../ProjectCard.astro';
+import { projects } from '../../data/projects';
+---
+<!-- ============ PROYECTOS ============ -->
+<section class="section projects" id="proyectos" aria-labelledby="proyectos-title" data-section="proyectos">
+  <div class="container">
+    <header class="section-head section-head--split" data-reveal>
+      <h2 class="section-title" id="proyectos-title">Proyectos que ya están funcionando</h2>
+      <p class="section-lead">Algunos de los sistemas y páginas que hemos creado para empresas como la tuya.</p>
+    </header>
+
+    <ul class="projects__grid" role="list">
+      {projects.slice(0, 3).map((project) => <ProjectCard project={project} href={`/proyectos#${project.id}`} />)}
+    </ul>
+
+    <div class="section-more">
+      <a class="btn btn--outline" href="/proyectos">
+        Ver todos los proyectos
+        <svg class="btn__icon" aria-hidden="true"><use href="#i-trace" /></svg>
+      </a>
+    </div>
+  </div>
+</section>

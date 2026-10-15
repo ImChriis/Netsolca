@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+---
+<BaseLayout
+  title="Página no encontrada | NETSOLCA"
+  description="La página que buscas no existe o cambió de dirección."
+  noindex
+  subpage
+>
+  <PageHero crumb="Página no encontrada" title="Página no encontrada" lead="La dirección que buscas no existe o cambió. Puedes volver al inicio o escribirnos por WhatsApp." />
+  <section class="offer" aria-label="Opciones">
+    <div class="container offer__inner">
+      <div class="offer__actions">
+        <a class="btn btn--primary btn--lg" href="/">Volver al inicio</a>
+        <a class="btn btn--outline btn--lg" href="/servicios">Ver servicios</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,127 @@
+---
+import { WHATSAPP_URL } from '../../data/site';
+---
+<!-- ============ HERO: qué hacemos y dónde ============ -->
+<section class="hero" id="inicio" aria-labelledby="hero-title" data-section="inicio">
+  <div class="hero__pattern" aria-hidden="true"></div>
+  <div class="hero__backdrop" aria-hidden="true"></div>
+
+  <div class="container hero__grid">
+    <div class="hero__content">
+      <div class="hero__title-wrap">
+        <span class="trace trace--top" aria-hidden="true"></span>
+        <h1 class="hero__title" id="hero-title">Creamos sistemas web para tu empresa</h1>
+        <span class="trace trace--bottom" aria-hidden="true"></span>
+      </div>
+
+      <p class="hero__lead">Desde <strong>Maracaibo, Venezuela</strong>, hacemos programas, páginas y tiendas en línea que ordenan tu negocio y te ayudan a vender más. Te atendemos <strong>las 24 horas</strong>.</p>
+
+      <div class="hero__actions">
+        <a class="btn btn--primary btn--lg" href={WHATSAPP_URL} data-whatsapp>
+          <svg class="btn__wa" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+          Escríbenos por WhatsApp
+        </a>
+        <a class="btn btn--outline btn--lg" href="#cotizar">Cotizar mi proyecto</a>
+      </div>
+
+      <ul class="hero__trust" role="list" aria-label="Por qué confiar en NETSOLCA">
+        <li>
+          <svg class="hero__trust-icon" aria-hidden="true"><use href="#i-award"/></svg>
+          <span><strong>+20 años</strong> de trayectoria</span>
+        </li>
+        <li>
+          <svg class="hero__trust-icon" aria-hidden="true"><use href="#i-clock"/></svg>
+          <span><strong>Atención 24/7</strong> todos los días</span>
+        </li>
+        <li>
+          <svg class="hero__trust-icon" aria-hidden="true"><use href="#i-search"/></svg>
+          <span><strong>Diagnóstico</strong> gratis</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Composición visual por capas: --depth controla el parallax de cada capa -->
+    <div class="hero__visual" data-hero-visual>
+      <figure class="hero-layer hero-layer--main" style="--depth: 8">
+        <!-- Foto: Unsplash (licencia libre). Reemplazar por fotografía propia de NETSOLCA. -->
+        <img
+          src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?auto=format&fit=crop&w=900&q=70"
+          srcset="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?auto=format&fit=crop&w=600&q=70 600w,
+                  https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?auto=format&fit=crop&w=900&q=70 900w"
+          sizes="(min-width: 1080px) 36vw, 90vw"
+          alt="Monitores con código en un puesto de desarrollo con luz azul"
+          width="900" height="1000" fetchpriority="high" decoding="async">
+      </figure>
+
+      <figure class="hero-layer hero-layer--inset" style="--depth: 18">
+        <img
+          src="https://images.unsplash.com/photo-1542744094-3a31f272c490?auto=format&fit=crop&w=500&q=70"
+          srcset="https://images.unsplash.com/photo-1542744094-3a31f272c490?auto=format&fit=crop&w=350&q=70 350w,
+                  https://images.unsplash.com/photo-1542744094-3a31f272c490?auto=format&fit=crop&w=500&q=70 500w"
+          sizes="(min-width: 1080px) 17vw, 38vw"
+          alt="Desarrollador trabajando frente a dos pantallas con el diseño de un sistema"
+          width="500" height="500" decoding="async">
+      </figure>
+
+      <!-- Maqueta de un sistema web (ilustrativa) -->
+      <div class="hero-layer hero-layer--panel net-panel" style="--depth: 26">
+        <div class="mock-bar">
+          <span class="mock-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="mock-url"><svg aria-hidden="true"><use href="#i-lock"/></svg>tuempresa.com/panel</span>
+          <span class="net-panel__status"><span class="led" aria-hidden="true"></span>En línea</span>
+        </div>
+        <svg class="mock" viewBox="0 0 360 214" role="img" aria-labelledby="mock-title" data-mock>
+          <title id="mock-title">Ilustración de un sistema web: panel con pedidos, clientes, ventas de la semana y facturas</title>
+          <rect class="mock-side" x="0" y="0" width="64" height="214" rx="8"/>
+          <rect class="mock-menu is-active" x="10" y="14" width="44" height="9" rx="4.5"/>
+          <rect class="mock-menu" x="10" y="34" width="36" height="6" rx="3"/>
+          <rect class="mock-menu" x="10" y="48" width="40" height="6" rx="3"/>
+          <rect class="mock-menu" x="10" y="62" width="30" height="6" rx="3"/>
+          <rect class="mock-menu" x="10" y="76" width="38" height="6" rx="3"/>
+
+          <g class="mock-kpi" transform="translate(74 0)"><rect class="mock-card" width="90" height="46" rx="8"/><text x="10" y="17" class="mock-label">Pedidos</text><text x="10" y="37" class="mock-value" data-kpi="pedidos">128</text></g>
+          <g class="mock-kpi" transform="translate(170 0)"><rect class="mock-card" width="90" height="46" rx="8"/><text x="10" y="17" class="mock-label">Clientes</text><text x="10" y="37" class="mock-value" data-kpi="clientes">54</text></g>
+          <g class="mock-kpi" transform="translate(266 0)"><rect class="mock-card" width="94" height="46" rx="8"/><text x="10" y="17" class="mock-label">Ventas</text><text x="10" y="37" class="mock-value mock-value--up" data-kpi="ventas">+12%</text></g>
+
+          <g transform="translate(74 54)">
+            <rect class="mock-card" width="286" height="98" rx="8"/>
+            <text x="10" y="16" class="mock-label">Ventas de la semana</text>
+            <rect class="mock-bar-col" style="--i:0" x="16" y="58" width="20" height="30" rx="3" data-bar/>
+            <rect class="mock-bar-col" style="--i:1" x="54" y="46" width="20" height="42" rx="3" data-bar/>
+            <rect class="mock-bar-col" style="--i:2" x="92" y="52" width="20" height="36" rx="3" data-bar/>
+            <rect class="mock-bar-col" style="--i:3" x="130" y="36" width="20" height="52" rx="3" data-bar/>
+            <rect class="mock-bar-col" style="--i:4" x="168" y="42" width="20" height="46" rx="3" data-bar/>
+            <rect class="mock-bar-col" style="--i:5" x="206" y="30" width="20" height="58" rx="3" data-bar/>
+            <rect class="mock-bar-col is-today" style="--i:6" x="244" y="24" width="20" height="64" rx="3" data-bar/>
+            <path class="mock-line" pathLength="100" data-mock-line d="M26 50 L64 38 L102 44 L140 28 L178 34 L216 22 L254 16"/>
+          </g>
+
+          <g transform="translate(74 160)">
+            <rect class="mock-card" width="286" height="54" rx="8"/>
+            <g data-mock-rows>
+              <g data-row>
+                <text x="10" y="21" class="mock-row" data-num>Factura 1042</text>
+                <rect class="mock-pill mock-pill--ok" x="214" y="10" width="62" height="16" rx="8" data-pill/><text x="245" y="21" class="mock-pill-text" text-anchor="middle" data-status>Pagada</text>
+              </g>
+              <g data-row>
+                <text x="10" y="43" class="mock-row" data-num>Factura 1043</text>
+                <rect class="mock-pill mock-pill--wait" x="214" y="32" width="62" height="16" rx="8" data-pill/><text x="245" y="43" class="mock-pill-text" text-anchor="middle" data-status>Pendiente</text>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <div class="hero-layer hero-chip hero-chip--secure" style="--depth: 34" aria-hidden="true">
+        <span class="hero-chip__icon"><svg><use href="#i-code"/></svg></span>
+        <span class="hero-chip__text"><strong>Sistema publicado</strong><small>Listo para usar</small></span>
+        <span class="led"></span>
+      </div>
+
+      <div class="hero-layer hero-chip hero-chip--traffic" style="--depth: 30" aria-hidden="true">
+        <span class="hero-chip__label">Visitas hoy</span>
+        <span class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
+      </div>
+    </div>
+  </div>
+</section>

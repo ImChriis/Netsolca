@@ -1,0 +1,78 @@
+/* =========================================================
+   NETSOLCA · Design tokens
+   Cambia aquí colores, tipografía, espaciado y movimiento.
+   ========================================================= */
+:root {
+  /* --- Marca --- */
+  --navy-950: #060F2E;
+  --navy-900: #0A1640;   /* azul del logo */
+  --navy-800: #0F2257;
+  --navy-700: #173273;
+  --ocean-600: #1D4FA6;
+  --cyan-400: #18C8F0;   /* cian señal: sobre fondos oscuros */
+  --cyan-300: #7BE2F8;
+  --cyan-600: #0277A8;   /* cian para texto sobre blanco (AA) */
+  --green-400: #2FE38A;  /* CTA */
+  --green-300: #6EF0B0;
+  --green-500: #1FCB75;  /* CTA hover */
+  --green-700: #0B7A44;  /* éxito sobre blanco (AA) */
+  --red-600: #C22F3C;    /* error sobre blanco (AA) */
+
+  --white: #FFFFFF;
+  --mist-50: #F6F9FC;
+  --mist-100: #EEF4FA;
+  --mist-200: #DCE6F2;
+  --mist-300: #C3D2E6;
+
+  --ink: var(--navy-900);
+  --text: #33415F;
+  --text-muted: #56658A;
+  --text-on-dark: #E6EEFA;
+  --text-on-dark-muted: #A9B8D6;
+
+  /* --- Tipografía --- */
+  --font-display: "Saira", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Instrument Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  --fs-xs: 0.8125rem;
+  --fs-sm: 0.9375rem;
+  --fs-base: 1.0625rem;
+  --fs-md: 1.1875rem;
+  --fs-lg: clamp(1.1875rem, 1.05rem + 0.4vw, 1.3125rem);
+  --fs-xl: clamp(1.375rem, 1.15rem + 0.7vw, 1.625rem);
+  --fs-2xl: clamp(1.9rem, 1.35rem + 1.9vw, 2.875rem);
+  --fs-hero: clamp(2.2rem, 1.25rem + 3.1vw, 3.95rem);
+
+  --lh-tight: 1.04;
+  --lh-snug: 1.18;
+  --lh-body: 1.62;
+
+  /* --- Espaciado y layout --- */
+  --container: 76rem;
+  --gutter: clamp(1rem, 0.4rem + 2.6vw, 2.5rem);
+  --section-y: clamp(4.5rem, 2.8rem + 6vw, 8rem);
+  --header-h: 80px;
+  --header-h-scrolled: 66px;
+
+  /* --- Formas: el chaflán replica los cortes diagonales del logotipo --- */
+  --radius-sm: 8px;
+  --radius: 12px;
+  --radius-lg: 18px;
+  --cut: 22px;
+  --cut-lg: 56px;
+
+  /* --- Sombras --- */
+  --shadow-sm: 0 1px 2px rgb(10 22 64 / 0.06), 0 4px 12px -4px rgb(10 22 64 / 0.08);
+  --shadow-md: 0 18px 40px -18px rgb(10 22 64 / 0.32);
+  --shadow-lg: 0 40px 80px -30px rgb(6 15 46 / 0.55);
+
+  /* --- Movimiento --- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 160ms;
+  --dur: 280ms;
+  --dur-slow: 700ms;
+
+  /* --- Foco --- */
+  --focus: var(--cyan-600);
+}

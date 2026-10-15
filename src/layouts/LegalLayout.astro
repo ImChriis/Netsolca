@@ -1,0 +1,73 @@
+---
+/** Layout de páginas legales: lectura en una columna, sin loader. */
+import '../styles/legal.css';
+import SEO from '../components/SEO.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import IconSprite from '../components/IconSprite.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Ruta de la página actual (para marcarla en el pie) */
+  path: string;
+}
+const { title, description, path } = Astro.props;
+const site = Astro.site ?? new URL('https://www.netsolca.com');
+const links = [
+  { href: '/aviso-legal', label: 'Aviso legal' },
+  { href: '/privacidad', label: 'Política de privacidad' },
+  { href: '/terminos', label: 'Términos y condiciones' },
+];
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: new URL('/', site).href },
+    { '@type': 'ListItem', position: 2, name: title.split(' | ')[0], item: new URL(path, site).href },
+  ],
+};
+const year = new Date().getFullYear();
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <SEO title={title} description={description} schema={[breadcrumb]} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Saira:wdth,wght@100..110,600..800&display=swap" />
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <IconSprite />
+
+    <header class="legal-header">
+      <div class="container legal-header__inner">
+        <a class="legal-header__brand" href="/"><img src="/assets/img/logo-netsolca.png" alt="NETSOLCA, ir al inicio" width="659" height="152" /></a>
+        <a class="legal-header__back" href="/">← Volver al inicio</a>
+      </div>
+    </header>
+
+    <main id="contenido" class="legal">
+      <article class="container legal__doc">
+        <slot />
+      </article>
+    </main>
+
+    <footer class="legal-footer">
+      <div class="container legal-footer__inner">
+        <p>© {year} NETSOLCA. RIF J-410000236. Maracaibo, Venezuela.</p>
+        <nav aria-label="Páginas legales">
+          <ul role="list">
+            {links.map((l) => <li><a href={l.href} aria-current={l.href === path ? 'page' : undefined}>{l.label}</a></li>)}
+          </ul>
+        </nav>
+      </div>
+    </footer>
+
+    <WhatsAppFloat />
+
+    <script>
+      import '../scripts/legal.js';
+    </script>
+  </body>
+</html>

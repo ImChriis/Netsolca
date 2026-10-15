@@ -1,0 +1,41 @@
+---
+/** Preguntas frecuentes (acordeón). Los mismos datos generan el FAQPage del SEO. */
+import { faq } from '../../data/faq';
+import { WHATSAPP_URL } from '../../data/site';
+---
+<!-- ============ PREGUNTAS FRECUENTES ============ -->
+<section class="section faq" id="preguntas" aria-labelledby="faq-title" data-section="contacto">
+  <div class="container faq__grid">
+    <header class="faq__intro" data-reveal>
+      <h2 class="section-title" id="faq-title">Lo que suelen preguntarnos</h2>
+      <p class="section-lead">¿Te queda alguna duda? Escríbenos, respondemos a cualquier hora.</p>
+      <a class="btn btn--outline" href={WHATSAPP_URL} data-whatsapp>
+        <svg class="btn__wa" aria-hidden="true"><use href="#i-whatsapp" /></svg>
+        Preguntar por WhatsApp
+      </a>
+    </header>
+
+    <div class="accordion" data-accordion="single" data-reveal>
+      {faq.map((item, i) => (
+        <div class="accordion__item">
+          <h3 class="accordion__heading">
+            <button
+              class="accordion__trigger"
+              type="button"
+              aria-expanded={i === 0 ? 'true' : 'false'}
+              aria-controls={`faq-${i + 1}`}
+              id={`faq-${i + 1}-btn`}
+              data-accordion-trigger
+            >
+              {item.question}
+              <span class="accordion__icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="accordion__panel" id={`faq-${i + 1}`} role="region" aria-labelledby={`faq-${i + 1}-btn`}>
+            <div class="accordion__inner"><p>{item.answer}</p></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,185 @@
+/* =========================================================
+   SERVICIOS · columnas separadas por líneas finas.
+   Al pasar el mouse (o enfocar) aparece la foto del sistema
+   sobre azul profundo y el texto pasa a blanco.
+   ========================================================= */
+.systems { padding-bottom: 0; }
+.systems .section-head { margin-bottom: clamp(2.5rem, 2rem + 2vw, 3.5rem); }
+
+.systems__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--mist-200);
+}
+
+.system {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 420px;
+  padding: clamp(2rem, 1.5rem + 1.5vw, 3rem) clamp(1.5rem, 1rem + 1.5vw, 2.5rem);
+  border-right: 1px solid var(--mist-200);
+  border-bottom: 1px solid var(--mist-200);
+  background: var(--white);
+  transition: background-color 0.2s ease;
+}
+.system:nth-child(4n) { border-right: 0; }
+
+/* Foto + velo azul (ocultos hasta el hover) */
+.system__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0 !important; /* gana al fundido de imágenes diferidas */
+  scale: 1.08;
+  transition: opacity 0.45s ease 0.08s, scale 1.2s var(--ease-out);
+}
+.system::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgb(10 22 64 / 0.78), rgb(6 15 46 / 0.94));
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+/* Acentos de esquina en cian, como en la referencia */
+.system::after {
+  content: "";
+  position: absolute;
+  top: -46px;
+  left: -46px;
+  width: 92px;
+  height: 92px;
+  border: 7px solid var(--cyan-400);
+  border-radius: 50%;
+  opacity: 0;
+  scale: 0.6;
+  transition: opacity 0.4s ease, scale 0.6s var(--ease-out);
+}
+
+.system__icon {
+  display: block;
+  margin-bottom: clamp(3rem, 2rem + 3vw, 5rem);
+  color: var(--cyan-600);
+  transition: color 0.2s ease, translate 0.5s var(--ease-out);
+}
+.system__icon svg { width: 46px; height: 46px; stroke-width: 1.5; }
+
+.system__body { display: flex; flex: 1; flex-direction: column; gap: 0.5rem; }
+.system__title {
+  font-size: clamp(1.45rem, 1.2rem + 0.8vw, 1.85rem);
+  line-height: 1.1;
+  transition: color 0.2s ease;
+}
+.system__sub {
+  margin-top: -0.2rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  color: var(--cyan-600);
+  transition: color 0.2s ease;
+}
+.system__text {
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+  line-height: 1.65;
+  transition: color 0.2s ease;
+}
+.system__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: flex-start;
+  min-height: 44px;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--cyan-600);
+  transition: color 0.2s ease;
+}
+.system__link svg { width: 18px; height: 18px; transition: translate 0.3s var(--ease-out); }
+
+/* Estado activo: hover con mouse o foco con teclado */
+@media (hover: hover) {
+  .system:hover { background: var(--navy-900); }
+  .system:hover .system__bg { opacity: 1 !important; scale: 1; }
+  .system:hover::before { opacity: 1; }
+  .system:hover::after { opacity: 1; scale: 1; }
+  .system:hover .system__icon { color: var(--cyan-400); translate: 0 -4px; }
+  .system:hover :is(.system__title, .system__text) { color: var(--white); }
+  .system:hover .system__text { color: var(--text-on-dark); }
+  .system:hover :is(.system__sub, .system__link) { color: var(--cyan-300); }
+  .system:hover .system__link svg { translate: 4px 0; }
+}
+.system:focus-within { background: var(--navy-900); }
+.system:focus-within .system__bg { opacity: 1 !important; scale: 1; }
+.system:focus-within::before,
+.system:focus-within::after { opacity: 1; scale: 1; }
+.system:focus-within .system__icon { color: var(--cyan-400); }
+.system:focus-within .system__title { color: var(--white); }
+.system:focus-within .system__text { color: var(--text-on-dark); }
+.system:focus-within :is(.system__sub, .system__link) { color: var(--cyan-300); }
+.system:focus-within { --focus: var(--cyan-400); }
+
+@media (max-width: 1079.98px) {
+  .systems__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .system { min-height: 360px; }
+  .system:nth-child(4n) { border-right: 1px solid var(--mist-200); }
+  .system:nth-child(2n) { border-right: 0; }
+}
+@media (max-width: 599.98px) {
+  .systems__grid { grid-template-columns: 1fr; }
+  .system { min-height: 0; border-right: 0 !important; }
+  .system__icon { margin-bottom: 1.5rem; }
+}
+
+/* =========================================================
+   OFERTA · diagnóstico gratis y asesoría (franja centrada)
+   ========================================================= */
+.offer {
+  padding-block: clamp(3rem, 2rem + 3vw, 4.5rem);
+  background: var(--mist-100);
+}
+.offer__inner {
+  display: grid;
+  justify-items: center;
+  gap: 2rem;
+  text-align: center;
+}
+.offer__title { font-size: var(--fs-2xl); }
+.offer__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem clamp(2rem, 5vw, 4rem);
+  max-width: 860px;
+  text-align: left;
+}
+.offer__list li { display: flex; gap: 1rem; align-items: flex-start; }
+.offer__list h3 { font-size: var(--fs-lg); margin-bottom: 0.25rem; }
+.offer__list p { color: var(--text-muted); }
+.offer__icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--green-400);
+  color: var(--navy-900);
+}
+.offer__icon svg { width: 24px; height: 24px; }
+@media (max-width: 679.98px) {
+  .offer__list { grid-template-columns: 1fr; }
+  .offer .btn { width: 100%; }
+}

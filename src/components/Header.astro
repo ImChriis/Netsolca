@@ -1,0 +1,54 @@
+---
+/**
+ * Header fijo. En el inicio el menú usa anclas (#servicios); en las páginas
+ * internas apunta a /servicios, /proyectos o a las anclas del inicio (/#cotizar).
+ */
+import { NAV, WHATSAPP_URL } from '../data/site';
+
+interface Props {
+  /** Id del enlace activo en páginas internas */
+  current?: string;
+}
+const { current } = Astro.props;
+const isHome = ['/', '', '/index', '/index.html'].includes(Astro.url.pathname);
+const hrefFor = (item: (typeof NAV)[number]) => (isHome ? item.anchor : item.page ?? `/${item.anchor}`);
+---
+<header class="site-header" data-header>
+  <div class="container site-header__inner">
+    <a class="site-header__brand" href={isHome ? '#inicio' : '/'}>
+      <img src="/assets/img/logo-netsolca.png" alt="NETSOLCA, ir al inicio" width="659" height="152" />
+    </a>
+
+    <nav class="site-nav" id="site-nav" aria-label="Principal" data-nav>
+      <ul class="site-nav__list" role="list">
+        {NAV.map((item) => (
+          <li>
+            <a
+              class="site-nav__link"
+              href={hrefFor(item)}
+              data-nav-link={item.id}
+              aria-current={current === item.id ? 'page' : undefined}
+            >{item.label}</a>
+          </li>
+        ))}
+      </ul>
+      <span class="site-nav__indicator" aria-hidden="true"></span>
+      <a class="btn btn--primary btn--lg site-nav__cta" href={WHATSAPP_URL} data-whatsapp>
+        <svg class="btn__wa" aria-hidden="true"><use href="#i-whatsapp" /></svg>
+        Escríbenos por WhatsApp
+      </a>
+    </nav>
+
+    <!-- WhatsApp visible desde la primera pantalla (en móvil queda solo el icono) -->
+    <a class="btn btn--primary btn--sm site-header__cta" href={WHATSAPP_URL} data-whatsapp>
+      <svg class="btn__wa" aria-hidden="true"><use href="#i-whatsapp" /></svg>
+      <span class="site-header__cta-text">WhatsApp</span>
+      <span class="sr-only"> de NETSOLCA</span>
+    </a>
+
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle>
+      <span class="sr-only" data-menu-label>Abrir menú</span>
+      <span class="menu-toggle__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+  </div>
+</header>

@@ -1,0 +1,25 @@
+---
+/** Servicios destacados del inicio (los marcados con featuredOnHome). */
+import SystemCard from '../SystemCard.astro';
+import { services } from '../../data/services';
+
+const featured = services.filter((s) => s.featuredOnHome);
+---
+<!-- ============ SERVICIOS: columnas con imagen al pasar el mouse ============ -->
+<section class="section systems" id="servicios" aria-labelledby="servicios-title" data-section="servicios">
+  <div class="container">
+    <header class="section-head section-head--split" data-reveal>
+      <h2 class="section-title" id="servicios-title">Software que se adapta a tu empresa</h2>
+      <p class="section-lead">Desarrollamos sistemas ERP, MRP y CRM a la medida, y además te acompañamos con todo lo que tu empresa necesita para estar en línea.</p>
+    </header>
+  </div>
+  <ul class="systems__grid" role="list" data-reveal>
+    {featured.map((service) => <SystemCard service={service} href={`/servicios#${service.id}`} />)}
+  </ul>
+  <div class="container section-more">
+    <a class="btn btn--outline" href="/servicios">
+      Ver todos los servicios
+      <svg class="btn__icon" aria-hidden="true"><use href="#i-trace" /></svg>
+    </a>
+  </div>
+</section>

@@ -1,0 +1,252 @@
+/* =========================================================
+   Base: reset, tipografía, utilidades y patrones globales
+   ========================================================= */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+
+/* Scrollbar con el azul de la marca */
+html {
+  scrollbar-color: var(--navy-900) var(--mist-100);
+  scrollbar-width: thin;
+}
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--mist-100); }
+::-webkit-scrollbar-thumb {
+  background: var(--navy-900);
+  border: 2px solid var(--mist-100);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--ocean-600); }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h-scrolled) + 20px);
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
+body {
+  min-height: 100vh;
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  line-height: var(--lh-body);
+  color: var(--text);
+  background: var(--white);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+img, picture, svg, video { display: block; max-width: 100%; }
+img { height: auto; }
+input, button, textarea, select { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: 0; padding: 0; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+ul[role="list"], ol[role="list"] { list-style: none; padding: 0; }
+[hidden] { display: none !important; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  line-height: var(--lh-snug);
+  font-weight: 700;
+  text-wrap: balance;
+}
+p { text-wrap: pretty; }
+strong { font-weight: 600; }
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+::selection { background: var(--cyan-400); color: var(--navy-900); }
+
+/* Contexto oscuro: ajusta foco y colores de texto */
+.on-dark {
+  --focus: var(--cyan-400);
+  color: var(--text-on-dark);
+}
+.on-dark :is(h2, h3, h4) { color: var(--white); }
+
+.icon-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+svg use { fill: inherit; }
+/* Los iconos del sprite son de trazo */
+svg:has(> use) {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* --- Layout --- */
+.container {
+  width: min(100% - 2 * var(--gutter), var(--container));
+  margin-inline: auto;
+}
+.section {
+  position: relative;
+  padding-block: var(--section-y);
+}
+.section--mist { background: var(--mist-100); }
+.section--navy { background: var(--navy-900); }
+
+/* --- Utilidades --- */
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: 12px; left: 12px;
+  z-index: 1000;
+  padding: 0.75rem 1.1rem;
+  border-radius: var(--radius-sm);
+  background: var(--navy-900);
+  color: var(--white);
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-180%);
+  transition: transform var(--dur) var(--ease-out);
+}
+.skip-link:focus { transform: none; }
+
+/* --- Encabezados de sección ---
+   La "traza" (línea + nodo) proviene del logotipo de NETSOLCA. */
+.section-head {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 44rem;
+  margin-bottom: clamp(2.5rem, 1.8rem + 2.4vw, 4rem);
+}
+.section-head--split {
+  max-width: none;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  align-items: end;
+  gap: 1.5rem clamp(2rem, 5vw, 5rem);
+}
+.section-head--split > div { display: grid; gap: 0.9rem; }
+/* Encabezado centrado: para secciones de atención (cotizador, métricas, testimonios) */
+.section-head--center {
+  justify-items: center;
+  margin-inline: auto;
+  text-align: center;
+}
+.section-head--center .section-title { max-width: 24ch; }
+.section-head--center .section-lead { margin-inline: auto; }
+@media (max-width: 860px) {
+  .section-head--split { grid-template-columns: 1fr; }
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--font-display);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--cyan-600);
+}
+.kicker::before {
+  content: "";
+  flex: none;
+  width: 36px;
+  height: 9px;
+  background:
+    linear-gradient(currentColor, currentColor) 0 50% / calc(100% - 7px) 2px no-repeat,
+    radial-gradient(circle closest-side, currentColor 88%, transparent) 100% 50% / 9px 9px no-repeat;
+}
+.on-dark .kicker { color: var(--cyan-400); }
+
+.section-title {
+  font-size: var(--fs-2xl);
+  font-weight: 700;
+  letter-spacing: -0.012em;
+  line-height: 1.1;
+  max-width: 22ch;
+}
+.section-lead {
+  font-size: var(--fs-lg);
+  color: var(--text-muted);
+  max-width: 34rem;
+}
+.on-dark .section-lead { color: var(--text-on-dark-muted); }
+
+/* --- Lista con checks --- */
+.check-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.8rem;
+}
+.check-list li {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 0.75rem;
+  align-items: start;
+}
+.check-list li::before {
+  content: "";
+  width: 22px;
+  height: 22px;
+  margin-top: 0.12em;
+  border-radius: 50%;
+  background: var(--green-400) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230A1640' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5 9.5 17 19 7.5'/%3E%3C/svg%3E") center / 13px no-repeat;
+}
+
+/* --- LED de estado --- */
+.led {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green-400);
+  box-shadow: 0 0 0 3px rgb(47 227 138 / 0.22), 0 0 12px rgb(47 227 138 / 0.7);
+  animation: led-blink 2.4s ease-in-out infinite;
+}
+@keyframes led-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+/* --- Animaciones al hacer scroll (activadas por js/modules/reveal.js) ---
+   Se usa `translate` (no `transform`) para no pisar los hovers de cada
+   componente; el JS retira data-reveal al terminar la entrada. */
+.js [data-reveal] {
+  opacity: 0;
+  translate: 0 18px;
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    translate var(--dur-slow) var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.js [data-reveal].is-visible {
+  opacity: 1;
+  translate: none;
+}
+
+/* --- Imágenes diferidas: aparecen suavemente al cargar --- */
+.js img[loading="lazy"] {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.js img[loading="lazy"].is-loaded { opacity: 1; }
+
+/* --- Movimiento reducido: se respeta en todo el sitio --- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .js [data-reveal] { opacity: 1; translate: none; }
+}

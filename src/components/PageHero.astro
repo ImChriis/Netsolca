@@ -1,0 +1,21 @@
+---
+/** Cabecera de páginas internas con migas de pan. */
+interface Props {
+  title: string;
+  lead: string;
+  crumb: string;
+}
+const { title, lead, crumb } = Astro.props;
+---
+<section class="page-hero">
+  <div class="page-hero__pattern" aria-hidden="true"></div>
+  <div class="container page-hero__inner">
+    <nav class="breadcrumb" aria-label="Ruta">
+      <a href="/">Inicio</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">{crumb}</span>
+    </nav>
+    <h1 class="page-hero__title">{title}</h1>
+    <p class="page-hero__lead">{lead}</p>
+  </div>
+</section>

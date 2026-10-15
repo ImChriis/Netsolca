@@ -1,0 +1,18 @@
+---
+/** Íconos de redes sociales (datos en src/data/site.ts). */
+import { SITE } from '../data/site';
+
+interface Props {
+  class?: string;
+}
+const { class: className = 'social' } = Astro.props;
+---
+<ul class={className} role="list">
+  {SITE.social.map((network) => (
+    <li>
+      <a href={network.url} target="_blank" rel="noopener" aria-label={`NETSOLCA en ${network.name} (${network.handle})`}>
+        <svg aria-hidden="true"><use href={`#${network.icon}`} /></svg>
+      </a>
+    </li>
+  ))}
+</ul>

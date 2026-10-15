@@ -1,0 +1,88 @@
+<!-- ============ COTIZADOR: una pregunta a la vez ============ -->
+<section class="section section--mist quote" id="cotizar" aria-labelledby="quote-title" data-section="cotizar">
+  <div class="container">
+    <header class="section-head section-head--center" data-reveal>
+      <h2 class="section-title" id="quote-title">Cotiza tu proyecto en un minuto</h2>
+      <p class="section-lead">Responde cuatro preguntas sencillas y te enviamos un presupuesto sin compromiso.</p>
+    </header>
+
+    <div class="wizard" data-quote data-reveal>
+      <div class="wizard__top">
+        <p class="wizard__count" data-wizard-count>Pregunta 1 de 4</p>
+        <div class="wizard__bar" aria-hidden="true"><span data-wizard-bar></span></div>
+      </div>
+
+      <form class="wizard__steps" data-quote-form aria-label="Cotizador">
+        <fieldset class="wizard__step is-active" data-step>
+          <legend class="wizard__question" tabindex="-1">¿Qué necesitas?</legend>
+          <div class="wizard__options wizard__options--4">
+            <label class="opt"><input type="radio" name="tipo" value="pagina" data-label="Página web" data-service="paginas"><span><svg aria-hidden="true"><use href="#i-browser"/></svg><strong>Página web</strong><small>Que te encuentren en internet</small></span></label>
+            <label class="opt"><input type="radio" name="tipo" value="tienda" data-label="Tienda en línea" data-service="tiendas"><span><svg aria-hidden="true"><use href="#i-cart"/></svg><strong>Tienda en línea</strong><small>Vender tus productos</small></span></label>
+            <label class="opt"><input type="radio" name="tipo" value="sistema" data-label="Sistema a la medida" data-service="sistemas"><span><svg aria-hidden="true"><use href="#i-code"/></svg><strong>Sistema a la medida</strong><small>Organizar tu empresa</small></span></label>
+            <label class="opt"><input type="radio" name="tipo" value="mejorar" data-label="Mejorar mi sistema actual" data-service="sistemas"><span><svg aria-hidden="true"><use href="#i-refresh"/></svg><strong>Mejorar lo que tengo</strong><small>Arreglos o cambios</small></span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="wizard__step" data-step>
+          <legend class="wizard__question" tabindex="-1">¿Quién lo va a usar?</legend>
+          <div class="wizard__options wizard__options--4">
+            <label class="opt"><input type="radio" name="usuarios" value="solo" data-label="Solo yo"><span><svg aria-hidden="true"><use href="#i-user"/></svg><strong>Solo yo</strong></span></label>
+            <label class="opt"><input type="radio" name="usuarios" value="equipo" data-label="Mi equipo (2 a 10 personas)"><span><svg aria-hidden="true"><use href="#i-users"/></svg><strong>Mi equipo</strong><small>De 2 a 10 personas</small></span></label>
+            <label class="opt"><input type="radio" name="usuarios" value="empresa" data-label="Toda la empresa (más de 10)"><span><svg aria-hidden="true"><use href="#i-building"/></svg><strong>Toda la empresa</strong><small>Más de 10 personas</small></span></label>
+            <label class="opt"><input type="radio" name="usuarios" value="clientes" data-label="Mis clientes también"><span><svg aria-hidden="true"><use href="#i-globe"/></svg><strong>Mis clientes</strong><small>También lo usarán</small></span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="wizard__step" data-step data-multi>
+          <legend class="wizard__question" tabindex="-1">¿Qué te gustaría que haga?</legend>
+          <p class="wizard__hint">Elige todas las que quieras.</p>
+          <div class="wizard__options wizard__options--3">
+            <label class="opt opt--check"><input type="checkbox" name="funciones" value="pagos" data-label="Cobrar en línea"><span><svg aria-hidden="true"><use href="#i-card"/></svg><strong>Cobrar en línea</strong></span></label>
+            <label class="opt opt--check"><input type="checkbox" name="funciones" value="inventario" data-label="Control de inventario"><span><svg aria-hidden="true"><use href="#i-box"/></svg><strong>Inventario</strong></span></label>
+            <label class="opt opt--check"><input type="checkbox" name="funciones" value="facturas" data-label="Facturas y presupuestos"><span><svg aria-hidden="true"><use href="#i-invoice"/></svg><strong>Facturas</strong></span></label>
+            <label class="opt opt--check"><input type="checkbox" name="funciones" value="citas" data-label="Citas o reservas"><span><svg aria-hidden="true"><use href="#i-calendar"/></svg><strong>Citas o reservas</strong></span></label>
+            <label class="opt opt--check"><input type="checkbox" name="funciones" value="reportes" data-label="Reportes y gráficas"><span><svg aria-hidden="true"><use href="#i-chart"/></svg><strong>Reportes</strong></span></label>
+            <label class="opt opt--check"><input type="checkbox" name="funciones" value="whatsapp" data-label="Avisos por WhatsApp"><span><svg aria-hidden="true"><use href="#i-whatsapp"/></svg><strong>Avisos por WhatsApp</strong></span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="wizard__step" data-step>
+          <legend class="wizard__question" tabindex="-1">¿Para cuándo lo necesitas?</legend>
+          <div class="wizard__options wizard__options--3">
+            <label class="opt"><input type="radio" name="plazo" value="urgente" data-label="Lo antes posible"><span><svg aria-hidden="true"><use href="#i-bolt"/></svg><strong>Lo antes posible</strong></span></label>
+            <label class="opt"><input type="radio" name="plazo" value="meses" data-label="En uno o dos meses"><span><svg aria-hidden="true"><use href="#i-calendar"/></svg><strong>En uno o dos meses</strong></span></label>
+            <label class="opt"><input type="radio" name="plazo" value="pensando" data-label="Todavía lo estoy pensando"><span><svg aria-hidden="true"><use href="#i-chat"/></svg><strong>Lo estoy pensando</strong></span></label>
+          </div>
+        </fieldset>
+
+        <!-- Resumen final -->
+        <div class="wizard__step wizard__summary" data-step data-summary>
+          <h3 class="wizard__question" tabindex="-1">Tu cotización está lista</h3>
+          <dl class="summary">
+            <div><dt>Necesitas</dt><dd data-quote-field="tipo">—</dd></div>
+            <div><dt>Lo usará</dt><dd data-quote-field="usuarios">—</dd></div>
+            <div><dt>Funciones</dt><dd data-quote-field="funciones">—</dd></div>
+            <div><dt>Para cuándo</dt><dd data-quote-field="plazo">—</dd></div>
+          </dl>
+          <p class="summary__size">Tamaño estimado: <strong data-quote-size>—</strong></p>
+          <div class="summary__actions">
+            <a class="btn btn--primary btn--lg" href="#contacto" data-quote-whatsapp>
+              <svg class="btn__wa" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+              Enviar por WhatsApp
+            </a>
+            <a class="btn btn--outline btn--lg" href="#contacto" data-quote-form-link>Usar el formulario</a>
+          </div>
+        </div>
+      </form>
+
+      <div class="wizard__nav">
+        <button class="wizard__back" type="button" data-wizard-back hidden>
+          <svg aria-hidden="true"><use href="#i-chevron-left"/></svg> Atrás
+        </button>
+        <button class="wizard__restart" type="button" data-quote-reset hidden>Empezar de nuevo</button>
+        <button class="btn btn--primary wizard__next" type="button" data-wizard-next disabled>Siguiente</button>
+      </div>
+      <p class="sr-only" aria-live="polite" data-quote-status></p>
+    </div>
+  </div>
+</section>

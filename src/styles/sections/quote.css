@@ -1,0 +1,182 @@
+/* =========================================================
+   COTIZADOR · asistente de una pregunta a la vez
+   Todos los pasos ocupan la misma celda del grid: la caja mantiene
+   siempre la misma altura y nada "salta" al avanzar.
+   ========================================================= */
+.wizard {
+  max-width: 880px;
+  margin-inline: auto;
+  padding: clamp(1.5rem, 1rem + 3vw, 3rem);
+  border-radius: 24px;
+  background: var(--white);
+  box-shadow: 0 30px 60px -40px rgb(10 22 64 / 0.35);
+}
+
+.wizard__top { display: grid; gap: 0.6rem; margin-bottom: clamp(1.75rem, 1.2rem + 2vw, 2.5rem); }
+.wizard__count { font-size: var(--fs-sm); color: var(--text-muted); text-align: center; }
+.wizard__bar {
+  height: 4px;
+  max-width: 280px;
+  width: 100%;
+  margin-inline: auto;
+  border-radius: 999px;
+  background: var(--mist-200);
+  overflow: hidden;
+}
+.wizard__bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--cyan-400), var(--green-400));
+  transform: scaleX(var(--p, 0.25));
+  transform-origin: left;
+  transition: transform 0.5s var(--ease-out);
+}
+
+/* --- Pasos apilados --- */
+.wizard__steps { display: grid; }
+.wizard__step {
+  grid-area: 1 / 1;
+  align-self: center; /* los pasos cortos quedan centrados en la caja fija */
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  visibility: hidden;
+  translate: 28px 0;
+  transition: opacity 0.3s ease, translate 0.45s var(--ease-out), visibility 0s linear 0.3s;
+}
+.wizard[data-dir="back"] .wizard__step:not(.is-active) { translate: -28px 0; }
+.wizard__step.is-active {
+  opacity: 1;
+  visibility: visible;
+  translate: 0 0;
+  transition-delay: 0s;
+}
+
+.wizard__question {
+  display: block;
+  width: 100%;
+  margin-bottom: 1.75rem;
+  padding: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.1rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--ink);
+  text-align: center;
+}
+.wizard__question:focus { outline: none; }
+.wizard__hint { margin: -1.1rem 0 1.5rem; text-align: center; color: var(--text-muted); font-size: var(--fs-sm); }
+
+/* --- Opciones --- */
+.wizard__options { display: grid; gap: 0.85rem; }
+.wizard__options--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.wizard__options--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+.opt { position: relative; display: block; cursor: pointer; }
+.opt input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+.opt span {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 0.35rem;
+  height: 100%;
+  padding: 1.5rem 0.9rem 1.35rem;
+  border: 1.5px solid var(--mist-200);
+  border-radius: 16px;
+  background: var(--white);
+  text-align: center;
+  transition: border-color var(--dur-fast), background-color var(--dur-fast), transform var(--dur) var(--ease-out), box-shadow var(--dur);
+}
+.opt svg {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 0.4rem;
+  padding: 13px;
+  border-radius: 14px;
+  background: var(--mist-100);
+  color: var(--cyan-600);
+  transition: background-color var(--dur), color var(--dur);
+}
+.opt strong { font-family: var(--font-display); font-size: 1.05rem; line-height: 1.2; color: var(--ink); }
+.opt small { font-size: var(--fs-xs); line-height: 1.4; color: var(--text-muted); }
+
+@media (hover: hover) {
+  .opt:hover span { border-color: var(--mist-300); transform: translateY(-3px); box-shadow: var(--shadow-sm); }
+}
+.opt input:checked + span { border-color: var(--navy-900); background: #F4FBFE; }
+.opt input:checked + span svg { background: var(--navy-900); color: var(--cyan-400); }
+.opt input:focus-visible + span { outline: 3px solid var(--focus); outline-offset: 3px; }
+/* Las opciones múltiples muestran un check */
+.opt--check input:checked + span::after {
+  content: "";
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--green-400) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230A1640' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5 9.5 17 19 7.5'/%3E%3C/svg%3E") center / 13px no-repeat;
+  animation: pop 0.35s var(--ease-out);
+}
+
+/* --- Resumen final --- */
+.wizard__summary { max-width: 560px; margin-inline: auto; width: 100%; }
+.summary { display: grid; }
+.summary > div {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr;
+  gap: 1rem;
+  padding-block: 0.8rem;
+  border-bottom: 1px solid var(--mist-200);
+}
+.summary dt { color: var(--text-muted); }
+.summary dd { margin: 0; color: var(--ink); font-weight: 600; }
+.summary__size { margin: 1.25rem 0 1.75rem; text-align: center; color: var(--text-muted); }
+.summary__size strong { color: var(--ink); }
+.summary__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
+
+/* --- Navegación --- */
+.wizard__nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: clamp(1.75rem, 1.2rem + 2vw, 2.5rem);
+}
+.wizard__back,
+.wizard__restart {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 44px;
+  padding-inline: 0.25rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-radius: 8px;
+}
+.wizard__back svg { width: 18px; height: 18px; }
+.wizard__back:hover,
+.wizard__restart:hover { color: var(--ink); }
+.wizard__next { margin-left: auto; }
+
+@media (max-width: 759.98px) {
+  .wizard__options--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .wizard__options--3 { grid-template-columns: 1fr; }
+  .wizard__options--3 .opt span {
+    grid-template-columns: auto 1fr;
+    justify-items: start;
+    align-items: center;
+    column-gap: 0.9rem;
+    padding: 0.85rem 1rem;
+    text-align: left;
+  }
+  .wizard__options--3 .opt svg { margin: 0; width: 44px; height: 44px; padding: 11px; }
+  .summary > div { grid-template-columns: 1fr; gap: 0.15rem; }
+  .summary__actions .btn { flex: 1 1 100%; }
+}
+@media (max-width: 379.98px) {
+  .opt span { padding: 1.1rem 0.6rem; }
+}

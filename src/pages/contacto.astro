@@ -1,0 +1,124 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import ContactForm from '../components/ContactForm.astro';
+import LocationMap from '../components/LocationMap.astro';
+import { SITE, WHATSAPP_URL, DIRECTIONS } from '../data/site';
+
+const site = Astro.site ?? new URL('https://www.netsolca.com');
+const url = new URL('/contacto', site).href;
+
+const [instagram, tiktok] = SITE.social;
+
+/** Canales de contacto: el primero (WhatsApp) va destacado */
+const channels = [
+  { icon: 'i-whatsapp', label: 'WhatsApp', value: SITE.phone, action: 'Escribir ahora', href: WHATSAPP_URL, external: true, whatsapp: true },
+  { icon: 'i-phone', label: 'Teléfono', value: SITE.phone, action: 'Llamar', href: `tel:${SITE.phoneIntl}` },
+  { icon: 'i-mail', label: 'Correo', value: SITE.email, action: 'Enviar correo', href: `mailto:${SITE.email}` },
+  { icon: instagram.icon, label: instagram.name, value: instagram.handle, action: 'Ver perfil', href: instagram.url, external: true },
+  { icon: tiktok.icon, label: tiktok.name, value: tiktok.handle, action: 'Ver videos', href: tiktok.url, external: true },
+];
+
+// Datos estructurados: página de contacto + migas de pan
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ContactPage',
+    name: 'Contacto | NETSOLCA',
+    url,
+    inLanguage: 'es-VE',
+    about: { '@id': new URL('/#organizacion', site).href },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: new URL('/', site).href },
+      { '@type': 'ListItem', position: 2, name: 'Contacto', item: url },
+    ],
+  },
+];
+---
+<BaseLayout
+  title="Contacto: WhatsApp, teléfono y ubicación en Maracaibo | NETSOLCA"
+  description={`Escríbenos por WhatsApp al ${SITE.phone}, al correo ${SITE.email} o visítanos en Maracaibo, Zulia. Atención 24 horas, los 7 días de la semana.`}
+  current="contacto"
+  subpage
+  schema={schema}
+>
+  <PageHero
+    crumb="Contacto"
+    title="Contacto"
+    lead="Escríbenos por WhatsApp, llámanos o visítanos en Maracaibo. Respondemos a cualquier hora, todos los días."
+  />
+
+  <!-- Canales -->
+  <section class="section channels" aria-labelledby="canales-title">
+    <div class="container">
+      <h2 class="sr-only" id="canales-title">Canales de contacto</h2>
+      <ul class="channels__grid" role="list" data-reveal>
+        {channels.map((channel, i) => (
+          <li>
+            <a
+              class:list={['channel', { 'channel--featured': i === 0 }]}
+              href={channel.href}
+              target={channel.external ? '_blank' : undefined}
+              rel={channel.external ? 'noopener' : undefined}
+              data-whatsapp={channel.whatsapp ? '' : undefined}
+            >
+              <span class="channel__icon" aria-hidden="true"><svg><use href={`#${channel.icon}`} /></svg></span>
+              <span class="channel__label">{channel.label}</span>
+              <span class="channel__value">{channel.value}</span>
+              <span class="channel__action">
+                {channel.action}
+                <svg aria-hidden="true"><use href="#i-arrow" /></svg>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Formulario -->
+  <section class="section section--mist contact" id="formulario" aria-labelledby="form-title">
+    <div class="container contact__grid">
+      <aside class="contact__info on-dark" aria-label="Información de atención" data-reveal>
+        <p class="section-title contact__aside-title">Cuéntanos qué necesitas</p>
+        <p class="contact__lead">Completa el formulario y se abrirá WhatsApp con tu mensaje listo para enviar. También puedes pedirnos un diagnóstico gratis.</p>
+        <ul class="contact__list" role="list">
+          <li>
+            <span class="contact__icon"><svg aria-hidden="true"><use href="#i-clock" /></svg></span>
+            <span><small>Horario</small>24 horas, los 7 días de la semana</span>
+          </li>
+          <li>
+            <span class="contact__icon"><svg aria-hidden="true"><use href="#i-search" /></svg></span>
+            <span><small>Diagnóstico</small>Gratis y sin compromiso</span>
+          </li>
+          <li>
+            <span class="contact__icon"><svg aria-hidden="true"><use href="#i-pin" /></svg></span>
+            <span><small>Dirección</small><a href="#ubicacion">Maracaibo, estado Zulia · Ver mapa</a></span>
+          </li>
+        </ul>
+      </aside>
+
+      <div class="contact__form-wrap" data-reveal>
+        <ContactForm title="Escríbenos aquí" headingLevel="h2" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Ubicación -->
+  <section class="section location" id="ubicacion" aria-labelledby="ubicacion-title">
+    <div class="container">
+      <header class="section-head section-head--center" data-reveal>
+        <h2 class="section-title" id="ubicacion-title">Dónde estamos</h2>
+        <p class="section-lead">Maracaibo, estado Zulia. Abre la ruta en Google Maps o en Waze.</p>
+      </header>
+      <LocationMap />
+      <p class="location__coords">
+        Coordenadas: <a href={DIRECTIONS.google} target="_blank" rel="noopener">{SITE.geo.lat.toFixed(6)}, {SITE.geo.lng.toFixed(6)}</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>

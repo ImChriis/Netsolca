@@ -1,0 +1,17 @@
+---
+/** Franja final de las páginas internas: diagnóstico gratis + cotizador. */
+import { WHATSAPP_URL } from '../data/site';
+---
+<section class="offer" aria-labelledby="offer-title">
+  <div class="container offer__inner" data-reveal>
+    <h2 class="offer__title" id="offer-title">¿Por dónde empezar?</h2>
+    <p class="offer__lead">Agenda un diagnóstico gratis: revisamos cómo trabaja tu empresa y te proponemos la solución adecuada a tu presupuesto.</p>
+    <div class="offer__actions">
+      <a class="btn btn--primary btn--lg" href={WHATSAPP_URL} data-whatsapp>
+        <svg class="btn__wa" aria-hidden="true"><use href="#i-whatsapp" /></svg>
+        Agendar diagnóstico gratis
+      </a>
+      <a class="btn btn--outline btn--lg" href="/#cotizar">Usar el cotizador</a>
+    </div>
+  </div>
+</section>

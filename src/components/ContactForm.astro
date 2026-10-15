@@ -1,0 +1,100 @@
+---
+/**
+ * Formulario de contacto. Al enviarlo se valida y se abre WhatsApp con el
+ * mensaje ya escrito (ver src/scripts/modules/form.js).
+ */
+import { SITE, WHATSAPP_URL } from '../data/site';
+
+interface Props {
+  title?: string;
+  /** Nivel del título según la página */
+  headingLevel?: 'h2' | 'h3';
+}
+const { title = '¿Prefieres escribirnos aquí?', headingLevel = 'h3' } = Astro.props;
+const Tag = headingLevel;
+---
+<form class="contact-form" data-contact-form novalidate aria-labelledby="form-title" data-state="idle">
+  <Tag class="contact-form__title" id="form-title">{title}</Tag>
+  <p class="contact-form__hint">Al enviar, se abre WhatsApp con tu mensaje listo. Todos los campos son obligatorios.</p>
+
+  <div class="contact-form__grid">
+    <div class="field">
+      <label class="field__label" for="f-nombre">Nombre y apellido</label>
+      <input class="field__input" id="f-nombre" name="nombre" type="text" autocomplete="name" required aria-describedby="f-nombre-error">
+      <p class="field__error" id="f-nombre-error"></p>
+    </div>
+    <div class="field">
+      <label class="field__label" for="f-empresa">Empresa o negocio</label>
+      <input class="field__input" id="f-empresa" name="empresa" type="text" autocomplete="organization" required aria-describedby="f-empresa-error">
+      <p class="field__error" id="f-empresa-error"></p>
+    </div>
+    <div class="field">
+      <label class="field__label" for="f-correo">Correo electrónico</label>
+      <input class="field__input" id="f-correo" name="correo" type="email" autocomplete="email" inputmode="email" required aria-describedby="f-correo-error">
+      <p class="field__error" id="f-correo-error"></p>
+    </div>
+    <div class="field">
+      <label class="field__label" for="f-telefono">Teléfono</label>
+      <input class="field__input" id="f-telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel" placeholder="0414 000 0000" required aria-describedby="f-telefono-error">
+      <p class="field__error" id="f-telefono-error"></p>
+    </div>
+    <div class="field field--full">
+      <label class="field__label" for="f-servicio">¿Qué te interesa?</label>
+      <div class="field__select">
+        <select class="field__input" id="f-servicio" name="servicio" required aria-describedby="f-servicio-error">
+          <option value="">Elige una opción</option>
+          <option value="sistemas">Sistema a la medida (ERP, MRP o CRM)</option>
+          <option value="paginas">Página web</option>
+          <option value="tiendas">Tienda en línea</option>
+          <option value="hosting">Hosting en la nube</option>
+          <option value="soporte">Soporte 24/7</option>
+          <option value="redes">Redes y equipos</option>
+          <option value="otro">Otro / aún no lo sé</option>
+        </select>
+      </div>
+      <p class="field__error" id="f-servicio-error"></p>
+    </div>
+    <div class="field field--full">
+      <label class="field__label" for="f-mensaje">Cuéntanos qué necesitas</label>
+      <textarea class="field__input field__textarea" id="f-mensaje" name="mensaje" rows="5" maxlength="1000" required aria-describedby="f-mensaje-error f-mensaje-count" placeholder="Por ejemplo: quiero un sistema para controlar las ventas e inventario de mi tienda."></textarea>
+      <div class="field__meta">
+        <p class="field__error" id="f-mensaje-error"></p>
+        <span class="field__count" id="f-mensaje-count" data-char-count>0 / 1000</span>
+      </div>
+    </div>
+
+    <!-- Honeypot anti-spam: invisible para personas -->
+    <div class="field--hp" aria-hidden="true">
+      <label for="f-web">No completes este campo</label>
+      <input id="f-web" name="website" type="text" tabindex="-1" autocomplete="off">
+    </div>
+  </div>
+
+  <div class="form-alert" role="alert" data-form-error hidden>
+    <strong>No pudimos abrir WhatsApp.</strong>
+    <span>Inténtalo de nuevo o escríbenos directamente al {SITE.phone}.</span>
+  </div>
+  <p class="sr-only" aria-live="assertive" data-form-summary></p>
+
+  <div class="contact-form__footer">
+    <button class="btn btn--primary btn--lg contact-form__submit" type="submit" data-submit>
+      <span class="spinner" aria-hidden="true"></span>
+      <svg class="btn__wa" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+      <span data-submit-label>Enviar por WhatsApp</span>
+    </button>
+    <p class="contact-form__privacy">Usamos tus datos solo para responderte. <a href="/privacidad">Política de privacidad</a>.</p>
+  </div>
+
+  <div class="form-success" data-form-success hidden tabindex="-1">
+    <span class="form-success__icon" aria-hidden="true"><svg><use href="#i-check"/></svg></span>
+    <h3>Tu mensaje está listo</h3>
+    <p data-success-text>Abrimos WhatsApp con tu mensaje: solo presiona Enviar en el chat.</p>
+    <div class="form-success__actions">
+      <a class="btn btn--primary" href={WHATSAPP_URL} target="_blank" rel="noopener" data-success-link>
+        <svg class="btn__wa" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+        ¿No se abrió? Abrir WhatsApp
+      </a>
+      <button class="btn btn--outline" type="button" data-form-reset>Escribir otro mensaje</button>
+    </div>
+  </div>
+</form>

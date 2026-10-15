@@ -1,0 +1,14 @@
+{
+  "name": "NETSOLCA",
+  "short_name": "NETSOLCA",
+  "description": "Sistemas web a la medida en Maracaibo, Venezuela.",
+  "lang": "es-VE",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#FFFFFF",
+  "theme_color": "#0A1640",
+  "icons": [
+    { "src": "/assets/img/icon-n-180.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/assets/img/icon-n-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

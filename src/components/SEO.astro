@@ -1,0 +1,140 @@
+---
+/**
+ * SEO de cada página: título, descripción, canónica, robots, Open Graph,
+ * Twitter, íconos, geolocalización y datos estructurados (JSON-LD).
+ */
+import { SITE } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Imagen para redes (ruta absoluta del sitio). Por defecto /og-image.png */
+  image?: string;
+  imageAlt?: string;
+  /** true para páginas que no deben indexarse (p. ej. 404) */
+  noindex?: boolean;
+  type?: 'website' | 'article';
+  /** Datos estructurados adicionales de la página */
+  schema?: Record<string, unknown>[];
+}
+
+const {
+  title = SITE.title,
+  description = SITE.description,
+  image = SITE.ogImage,
+  imageAlt = SITE.ogImageAlt,
+  noindex = false,
+  type = 'website',
+  schema = [],
+} = Astro.props;
+
+const site = Astro.site ?? new URL('https://www.netsolca.com');
+// URL limpia: /index.html → /, /servicios.html → /servicios (igual que el sitemap y vercel.json)
+const cleanPath = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/').replace(/(.)\/$/, '$1') || '/';
+const canonical = new URL(cleanPath, site).href;
+const imageUrl = new URL(image, site).href;
+const orgId = new URL('/#organizacion', site).href;
+
+/** Empresa: aparece en todas las páginas */
+const organization = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  '@id': orgId,
+  name: SITE.name,
+  url: new URL('/', site).href,
+  logo: new URL('/assets/img/logo-netsolca.png', site).href,
+  image: imageUrl,
+  description: SITE.description,
+  taxID: SITE.taxId,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: SITE.address.locality,
+    addressRegion: SITE.address.region,
+    addressCountry: SITE.address.country,
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: SITE.geo.lat, longitude: SITE.geo.lng },
+  areaServed: { '@type': 'Country', name: 'Venezuela' },
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    opens: '00:00',
+    closes: '23:59',
+  },
+  knowsAbout: ['Desarrollo de software', 'Sistemas ERP', 'Sistemas MRP', 'CRM', 'Páginas web', 'Tiendas en línea', 'Hosting', 'Redes'],
+  telephone: SITE.phoneIntl,
+  email: SITE.email,
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'customer service',
+    telephone: SITE.phoneIntl,
+    email: SITE.email,
+    areaServed: 'VE',
+    availableLanguage: 'es',
+    hoursAvailable: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+      opens: '00:00',
+      closes: '23:59',
+    },
+  },
+  hasMap: `https://www.google.com/maps?q=${SITE.geo.lat},${SITE.geo.lng}`,
+  sameAs: SITE.social.map((s) => s.url),
+};
+
+const website = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': new URL('/#sitio', site).href,
+  url: new URL('/', site).href,
+  name: SITE.name,
+  inLanguage: 'es-VE',
+  publisher: { '@id': orgId },
+};
+
+const jsonLd = [organization, website, ...schema];
+---
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1'} />
+<meta name="author" content={SITE.name} />
+<meta name="generator" content={Astro.generator} />
+<meta name="theme-color" content={SITE.themeColor} />
+<meta name="format-detection" content="telephone=no" />
+
+<!-- Ubicación -->
+<meta name="geo.region" content={SITE.address.regionCode} />
+<meta name="geo.placename" content={SITE.address.locality} />
+<meta name="geo.position" content={`${SITE.geo.lat};${SITE.geo.lng}`} />
+<meta name="ICBM" content={`${SITE.geo.lat}, ${SITE.geo.lng}`} />
+
+<!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={SITE.name} />
+<meta property="og:locale" content={SITE.locale} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={imageAlt} />
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
+<meta name="twitter:image:alt" content={imageAlt} />
+
+<!-- Íconos -->
+<link rel="icon" href="/favicon.ico" sizes="32x32" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/img/icon-n-32.png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/site.webmanifest" />
+<link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+
+{jsonLd.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} />)}

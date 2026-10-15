@@ -1,0 +1,127 @@
+/* =========================================================
+   LOADER · la "N" de NETSOLCA dibujándose (ver js/modules/loader.js)
+   Solo es visible mientras <html> tiene .is-loading.
+   ========================================================= */
+.loader { display: none; }
+html.is-loading .loader,
+.loader.is-leaving {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: block;
+  pointer-events: none;
+}
+html.is-loading { overflow: hidden; }
+html.is-loading .loader { pointer-events: auto; }
+
+/* Mientras carga, la entrada del hero espera */
+html.is-loading .hero *,
+html.is-loading .hero *::before,
+html.is-loading .hero *::after { animation-play-state: paused !important; }
+
+.loader__curtain,
+.loader__panel {
+  position: absolute;
+  inset: 0;
+}
+.loader__curtain { background: var(--cyan-400); }
+.loader__panel {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 2.25rem;
+  background:
+    radial-gradient(50% 45% at 50% 45%, rgb(24 200 240 / 0.16), transparent 70%),
+    linear-gradient(165deg, var(--navy-800), var(--navy-950));
+}
+.loader__panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(closest-side, #000, transparent);
+  mask-image: radial-gradient(closest-side, #000, transparent);
+}
+
+.loader__mark {
+  position: relative;
+  width: min(240px, 56vw);
+  aspect-ratio: 700 / 440;
+}
+.loader__mark svg,
+.loader__fill {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.loader__mark svg { overflow: visible; filter: drop-shadow(0 0 10px rgb(24 200 240 / 0.65)); }
+/* Silueta tenue: visible desde el primer instante, la traza la recorre encima */
+.loader__ghost {
+  fill: rgb(255 255 255 / 0.04);
+  stroke: rgb(255 255 255 / 0.14);
+  stroke-width: 4;
+  stroke-linejoin: round;
+}
+.loader__stroke {
+  fill: none;
+  stroke: var(--cyan-400);
+  stroke-width: 9;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.loader__pulse {
+  fill: none;
+  stroke: var(--cyan-300);
+  stroke-width: 4;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.loader__fill { opacity: 0; object-fit: contain; }
+
+.loader__bar {
+  position: relative;
+  width: min(180px, 46vw);
+  height: 2px;
+  border-radius: 2px;
+  background: rgb(255 255 255 / 0.12);
+  overflow: hidden;
+}
+.loader__bar span {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--cyan-400), var(--green-400));
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* Entrada en CSS: arranca en el primer pintado, sin esperar a ningún script.
+   (Anime.js se usa luego para la barra de progreso y la salida.) */
+html.is-loading .loader__stroke { animation: loader-draw 1.3s cubic-bezier(0.65, 0, 0.35, 1) 0.15s forwards; }
+html.is-loading .loader__pulse:first-of-type { animation: loader-pulse 0.9s ease-out 0.15s; }
+html.is-loading .loader__pulse:last-of-type { animation: loader-pulse 0.9s ease-out 0.8s; }
+html.is-loading .loader__fill { animation: loader-fill 0.65s ease-out 1.2s forwards; }
+html.is-loading :is(.loader__stroke, .loader__ghost) { animation-name: loader-draw, loader-out; animation-duration: 1.3s, 0.5s; animation-delay: 0.15s, 1.45s; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1), linear; animation-fill-mode: forwards, forwards; }
+html.is-loading .loader__ghost { animation-name: none, loader-out; }
+.loader.is-leaving .loader__stroke,
+.loader.is-leaving .loader__ghost { opacity: 0; }
+.loader.is-leaving .loader__fill { opacity: 1; }
+
+@keyframes loader-draw { to { stroke-dashoffset: 0; } }
+@keyframes loader-pulse {
+  from { opacity: 0.8; transform: scale(1); }
+  to { opacity: 0; transform: scale(1.9); }
+}
+@keyframes loader-fill {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes loader-out { to { opacity: 0; } }
+
+.loader--fade { opacity: 0; transition: opacity 0.45s ease; }

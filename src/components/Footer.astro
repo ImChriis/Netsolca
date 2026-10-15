@@ -1,0 +1,64 @@
+---
+import { SITE, WHATSAPP_URL } from '../data/site';
+import SocialLinks from './SocialLinks.astro';
+
+const year = new Date().getFullYear();
+---
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer on-dark">
+  <div class="container">
+    <div class="site-footer__top">
+      <div class="site-footer__brand">
+        <a class="site-footer__logo" href="/#inicio">
+          <img src="/assets/img/logo-netsolca.png" alt="NETSOLCA, volver al inicio" width="659" height="152" loading="lazy" decoding="async">
+        </a>
+        <p>Sistemas web, páginas y tiendas en línea para empresas. Más de 20 años de trayectoria, desde Maracaibo, Venezuela.</p>
+        <SocialLinks />
+      </div>
+
+      <div class="site-footer__col">
+        <h2 class="site-footer__heading">Servicios</h2>
+        <ul role="list">
+          <li><a href="/servicios#erp">ERP</a></li>
+          <li><a href="/servicios#mrp">MRP</a></li>
+          <li><a href="/servicios#crm">CRM</a></li>
+          <li><a href="/servicios#hosting">Hosting en la nube</a></li>
+          <li><a href="/servicios#paginas">Páginas web</a></li>
+          <li><a href="/servicios#tiendas">Tiendas en línea</a></li>
+          <li><a href="/servicios#soporte">Soporte 24/7</a></li>
+        </ul>
+      </div>
+
+      <div class="site-footer__col">
+        <h2 class="site-footer__heading">Contacto</h2>
+        <ul role="list" class="site-footer__contact">
+          <li>Maracaibo, Zulia, Venezuela</li>
+          <li>Atención 24/7</li>
+          <li><a href={`tel:${SITE.phoneIntl}`}>{SITE.phone}</a></li>
+          <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+        </ul>
+        <a class="btn btn--primary btn--sm" href={WHATSAPP_URL} data-whatsapp>
+          <svg class="btn__wa" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+          WhatsApp
+        </a>
+      </div>
+
+      <nav class="site-footer__col" aria-labelledby="ft-empresa">
+        <h2 class="site-footer__heading" id="ft-empresa">Empresa</h2>
+        <ul role="list">
+          <li><a href="/nosotros">Nosotros</a></li>
+          <li><a href="/proyectos">Proyectos</a></li>
+          <li><a href="/contacto">Contacto</a></li>
+          <li><a href="/aviso-legal">Aviso legal</a></li>
+          <li><a href="/privacidad">Política de privacidad</a></li>
+          <li><a href="/terminos">Términos y condiciones</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="site-footer__bottom">
+      <p>© <span data-year>{year}</span> NETSOLCA. RIF J-410000236. Todos los derechos reservados.</p>
+      <p>Hecho en Maracaibo, Venezuela.</p>
+    </div>
+  </div>
+</footer>

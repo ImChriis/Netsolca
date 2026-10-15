@@ -1,0 +1,6 @@
+/* Hoja de las páginas legales. */
+@import './tokens.css';
+@import './base.css';
+@import './components/buttons.css';
+@import './components/whatsapp.css';
+@import './sections/legal.css';

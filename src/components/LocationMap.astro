@@ -1,0 +1,26 @@
+---
+/**
+ * Mapa interactivo (Leaflet + OpenStreetMap). Se carga al acercarse;
+ * la lógica está en src/scripts/modules/map.js.
+ */
+import { SITE, DIRECTIONS } from '../data/site';
+---
+<div class="map" data-map data-reveal>
+  <div class="map__canvas" data-map-canvas role="region" aria-label="Mapa interactivo con la ubicación de NETSOLCA en Maracaibo"></div>
+  <div class="map__card">
+    <p class="map__name">NETSOLCA</p>
+    <p class="map__address">{SITE.address.locality}, estado {SITE.address.region}, Venezuela</p>
+    <p class="map__hours"><span class="led" aria-hidden="true"></span>Abierto 24/7</p>
+    <div class="map__actions">
+      <a class="btn btn--primary btn--sm" href={DIRECTIONS.google} target="_blank" rel="noopener" data-map-directions>
+        <svg class="btn__pin" aria-hidden="true"><use href="#i-pin" /></svg>
+        Google Maps
+      </a>
+      <a class="btn btn--outline btn--sm" href={DIRECTIONS.waze} target="_blank" rel="noopener" data-map-waze>
+        <svg class="btn__pin" aria-hidden="true"><use href="#i-navigation" /></svg>
+        Waze
+      </a>
+      <button class="map__recenter" type="button" data-map-recenter>Centrar mapa</button>
+    </div>
+  </div>
+</div>

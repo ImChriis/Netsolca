@@ -1,0 +1,33 @@
+/* =========================================================
+   EMPRESAS QUE CONFÍAN · franja de logos sobre azul profundo
+   Los logos son PNG transparentes (se quitó el fondo negro original).
+   ========================================================= */
+.clients {
+  margin-top: clamp(4rem, 3rem + 3vw, 5.5rem);
+  padding-top: clamp(2.5rem, 2rem + 2vw, 3.5rem);
+  border-top: 1px solid rgb(255 255 255 / 0.1);
+  text-align: center;
+}
+.clients__title {
+  margin-bottom: 2rem;
+  color: var(--text-on-dark-muted);
+  font-size: var(--fs-sm);
+}
+.clients__marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.clients__marquee .marquee { --gap: clamp(3rem, 6vw, 5.5rem); }
+
+.client {
+  display: grid;
+  place-items: center;
+  filter: grayscale(1);
+  opacity: 0.7;
+  transition: filter 0.4s ease, opacity 0.4s ease;
+}
+.client__logo { width: 104px; height: 104px; object-fit: contain; }
+@media (hover: hover) {
+  .client:hover { filter: none; opacity: 1; }
+}
