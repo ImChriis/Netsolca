@@ -1,7 +1,8 @@
 ---
 /**
- * Header fijo. En el inicio el menú usa anclas (#servicios); en las páginas
- * internas apunta a /servicios, /proyectos o a las anclas del inicio (/#cotizar).
+ * Header fijo. Las secciones con página propia (servicios, proyectos, nosotros,
+ * contacto) siempre llevan a esa página; las demás usan anclas del inicio
+ * (#cotizar en el inicio, /#cotizar desde las páginas internas).
  */
 import { NAV, WHATSAPP_URL } from '../data/site';
 
@@ -11,7 +12,11 @@ interface Props {
 }
 const { current } = Astro.props;
 const isHome = ['/', '', '/index', '/index.html'].includes(Astro.url.pathname);
-const hrefFor = (item: (typeof NAV)[number]) => (isHome ? item.anchor : item.page ?? `/${item.anchor}`);
+const hrefFor = (item: (typeof NAV)[number]) => {
+  if (item.page) return item.page;
+  if (isHome) return item.anchor;
+  return item.id === 'inicio' ? '/' : `/${item.anchor}`;
+};
 ---
 <header class="site-header" data-header>
   <div class="container site-header__inner">

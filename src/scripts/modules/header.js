@@ -104,13 +104,17 @@ export function initHeader() {
     // Una línea fina a ~40 % del alto de la ventana decide qué sección está activa.
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) setActive(/** @type {HTMLElement} */ (entry.target).dataset.section ?? '');
+        if (!entry.isIntersecting) return;
+        const key = /** @type {HTMLElement} */ (entry.target).dataset.section ?? '';
+        // Solo se resaltan los enlaces que apuntan a una sección de esta misma página
+        const link = links.find((l) => l.dataset.navLink === key);
+        setActive(link?.getAttribute('href')?.startsWith('#') ? key : '');
       });
     }, { rootMargin: '-40% 0px -59% 0px' });
     sections.forEach((section) => observer.observe(section));
   }
 
-  // En páginas internas (servicios, proyectos) el enlace activo viene marcado en el HTML
+  // En páginas internas el enlace activo viene marcado en el HTML
   const pageLink = links.find((link) => link.getAttribute('aria-current') === 'page');
   if (pageLink) {
     current = pageLink.dataset.navLink ?? null;
