@@ -18,13 +18,19 @@ const hrefFor = (item: (typeof NAV)[number]) => {
   return item.id === 'inicio' ? '/' : `/${item.anchor}`;
 };
 ---
-<header class="site-header" data-header>
+<header class="site-header" data-header   transition:persist="site-header">
   <div class="container site-header__inner">
-    <a class="site-header__brand" href={isHome ? '#inicio' : '/'}>
+    <a class="site-header__brand" href={isHome ? '#inicio' : '/'} data-nav-brand>
       <img src="/assets/img/logo-netsolca.png" alt="NETSOLCA, ir al inicio" width="659" height="152" />
     </a>
 
-    <nav class="site-nav" id="site-nav" aria-label="Principal" data-nav>
+    <nav
+      class="site-nav"
+      id="site-nav"
+      aria-label="Principal"
+      data-nav
+      data-nav-config={JSON.stringify(NAV.map(({ id, anchor, page }) => ({ id, anchor, page: page ?? null })))}
+    >
       <ul class="site-nav__list" role="list">
         {NAV.map((item) => (
           <li>

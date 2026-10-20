@@ -12,11 +12,36 @@ export function initHeader() {
   if (!header) return;
 
   const nav = $('[data-nav]', header);
+  const brand = $('[data-nav-brand]', header);
   const toggle = $('[data-menu-toggle]', header);
   const toggleLabel = $('[data-menu-label]', header);
   const indicator = $('.site-nav__indicator', header);
   const links = $$('[data-nav-link]', header);
   const desktop = window.matchMedia(DESKTOP_QUERY);
+
+  // Mismos datos que renderiza Header.astro, para poder recalcular los href.
+  const navConfig = (() => {
+    try { return JSON.parse(nav?.dataset.navConfig ?? '[]'); } catch { return []; }
+  })();
+
+  /**
+   * El header lleva `transition:persist`, así que tras una navegación conserva
+   * los href de la página con la que entró: '#inicio' y '#cotizar' son anclas
+   * relativas al documento y al cambiar de página resuelven contra la URL nueva
+   * ('/servicios#cotizar'). Consecuencias: el enlace activo salía siempre
+   * "Inicio" y Cotizar no navegaba desde páginas internas. Se recalculan con
+   * las mismas reglas del SSR.
+   */
+  const refreshHrefs = () => {
+    const home = ['/', '', '/index', '/index.html'].includes(window.location.pathname);
+    const hrefFor = (item) => item.page || (home ? item.anchor : (item.id === 'inicio' ? '/' : `/${item.anchor}`));
+
+    links.forEach((link) => {
+      const item = navConfig.find((candidate) => candidate.id === link.dataset.navLink);
+      if (item) link.setAttribute('href', hrefFor(item));
+    });
+    brand?.setAttribute('href', home ? '#inicio' : '/');
+  };
 
   /* ---------- 1. Fondo translúcido al hacer scroll ---------- */
   let ticking = false;
@@ -72,6 +97,8 @@ export function initHeader() {
   /* ---------- 3. Sección activa + indicador ---------- */
   /** @type {string | null} */
   let current = null;
+  /** @type {IntersectionObserver | null} */
+  let observer = null;
 
   const moveIndicator = () => {
     if (!indicator || !nav) return;
@@ -89,38 +116,164 @@ export function initHeader() {
   };
 
   /** @param {string} key */
-  const setActive = (key) => {
-    if (key === current) return;
-    current = key;
-    links.forEach((link) => {
-      if (link.dataset.navLink === key) link.setAttribute('aria-current', 'location');
-      else link.removeAttribute('aria-current');
-    });
-    moveIndicator();
-  };
+const setActive = (key) => {
+  const changed = key !== current;
+  current = key;
 
-  const sections = $$('[data-section]');
-  if ('IntersectionObserver' in window && sections.length) {
+  if (changed) {
+    links.forEach((link) => {
+      if (link.dataset.navLink === key) {
+        link.setAttribute('aria-current', 'location');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    });
+  }
+
+  moveIndicator();
+};
+
+/**
+ * Normaliza un pathname para poder compararlo: '/index.html', '/index' y '/'
+ * quedan iguales, igual que el pathname de un enlace ancla (#inicio → '/').
+ */
+const normalizePath = (value) => value.replace(/\/index(\.html?)?$/, '').replace(/\/+$/, '') || '/';
+
+/** Decodifica el hash de la URL de forma segura. */
+const hashId = (hash) => {
+  if (!hash || hash === '#') return '';
+  try { return decodeURIComponent(hash.slice(1)); } catch { return hash.slice(1); }
+};
+
+/**
+ * Enlace del nav que corresponde a un hash (#cotizar), solo si ese ancla
+ * pertenece a esta misma página (desde /servicios, '/#cotizar' es válido).
+ */
+const navLinkForHash = (hash) => {
+  if (!hash || hash === '#') return '';
+
+  const path = normalizePath(window.location.pathname);
+  const link = links.find((candidate) => {
+    const url = new URL(candidate.href, window.location.origin);
+    return url.hash === hash && normalizePath(url.pathname) === path;
+  });
+
+  return link?.dataset.navLink ?? '';
+};
+
+const activeFromHash = () => {
+  const hash = window.location.hash;
+  if (!document.getElementById(hashId(hash))) return '';
+  return navLinkForHash(hash);
+};
+
+const updateCurrentFromUrl = () => {
+  const fromHash = activeFromHash();
+  if (fromHash) {
+    setActive(fromHash);
+    return;
+  }
+
+  const path = normalizePath(window.location.pathname);
+  const link = links.find((candidate) => {
+    const url = new URL(candidate.href, window.location.origin);
+    return normalizePath(url.pathname) === path;
+  });
+
+  setActive(link?.dataset.navLink ?? '');
+};
+
+  // Observa las secciones de la página actual. Se recrea en cada navegación:
+  // con el ClientRouter el <main> se reemplaza y los nodos viejos quedan sueltos.
+  const observeSections = () => {
+    observer?.disconnect();
+    observer = null;
+
+    const sections = $$('[data-section]');
+    if (!('IntersectionObserver' in window) || !sections.length) return;
+
     // Una línea fina a ~40 % del alto de la ventana decide qué sección está activa.
-    const observer = new IntersectionObserver((entries) => {
+    observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
+
         const key = /** @type {HTMLElement} */ (entry.target).dataset.section ?? '';
-        // Solo se resaltan los enlaces que apuntan a una sección de esta misma página
         const link = links.find((l) => l.dataset.navLink === key);
-        setActive(link?.getAttribute('href')?.startsWith('#') ? key : '');
+
+        if (link?.getAttribute('href')?.startsWith('#')) {
+          setActive(key);
+        }
       });
     }, { rootMargin: '-40% 0px -59% 0px' });
     sections.forEach((section) => observer.observe(section));
-  }
+  };
+
+  document.addEventListener('astro:before-preparation', () => {
+  if (nav?.classList.contains('is-open')) setMenu(false);
+});
+
+  /**
+   * Recalcula todo tras un cambio de página/ubicación.
+   * Se ejecuta en `astro:after-swap` (justo después del swap y de restaurar el
+   * scroll) además de en `astro:page-load`, que llega tarde (tras las animaciones)
+   * e incluso puede no llegar si la transición se aborta: en ese caso el observer
+   * se quedaba mirando el DOM viejo y la línea dejaba de moverse hasta recargar.
+   */
+  const syncActive = () => {
+    refreshHrefs();
+    updateCurrentFromUrl();
+    observeSections();
+    requestAnimationFrame(moveIndicator);
+  };
 
   // En páginas internas el enlace activo viene marcado en el HTML
-  const pageLink = links.find((link) => link.getAttribute('aria-current') === 'page');
-  if (pageLink) {
-    current = pageLink.dataset.navLink ?? null;
-    moveIndicator();
-  }
+  syncActive();
+
+  document.addEventListener('astro:after-swap', syncActive);
+  document.addEventListener('astro:page-load', syncActive);
+
+  // Navegación dentro de la misma página (#cotizar): el ClientRouter sale
+  // temprano y NO emite astro:after-swap/astro:page-load, solo cambia el hash.
+  window.addEventListener('hashchange', updateCurrentFromUrl);
+
+  /**
+   * Anclas de la misma página (#cotizar).
+   * Verificado en navegador: al hacer clic, el ClientRouter cambia la URL con
+   * pushState y después asigna location.href a esa misma URL, así que el
+   * navegador NO emite `hashchange` (solo un popstate). El scroll suave además
+   * se puede cancelar, con lo que el IntersectionObserver dejaba la línea en la
+   * última sección que cruzó (o en ninguna). Marcarlo en el clic es lo único
+   * determinista, y cubre también los enlaces que no están en el nav
+   * (p. ej. el CTA "Cotizar mi proyecto" del hero).
+   */
+  document.addEventListener('click', (event) => {
+    if (!(event.target instanceof Element)) return;
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+    const anchor = event.target.closest('a[href]');
+    if (!anchor || anchor.target || anchor.hasAttribute('download')) return;
+
+    let url;
+    try { url = new URL(anchor.href, window.location.origin); } catch { return; }
+    if (url.origin !== window.location.origin) return;
+    if (normalizePath(url.pathname) !== normalizePath(window.location.pathname)) return;
+    if (!document.getElementById(hashId(url.hash))) return;
+
+    const key = navLinkForHash(url.hash);
+    if (!key) return;
+
+    setActive(key);
+    // Fase de captura: el ClientRouter (y otros scripts) cancelan el
+    // comportamiento por defecto de todos los enlaces del mismo origen, así que
+    // hay que marcar ANTES de que eso ocurra.
+  }, { capture: true });
 
   window.addEventListener('resize', moveIndicator, { passive: true });
   document.fonts?.ready.then(moveIndicator).catch(() => {});
+
+  // Autoreparación: si el nav cambia de tamaño (fuentes web, zoom, cambio de
+  // scrollbar) el trazo se vuelve a medir sin necesidad de recargar.
+  if (nav && 'ResizeObserver' in window) {
+    new ResizeObserver(() => moveIndicator()).observe(nav);
+  }
 }

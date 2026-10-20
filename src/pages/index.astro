@@ -24,7 +24,7 @@ const faqSchema = {
 };
 const heroPhoto = 'https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?auto=format&fit=crop&q=70';
 ---
-<BaseLayout title={SITE.title} description={SITE.description} schema={[faqSchema]}>
+<BaseLayout title={SITE.title} description={SITE.description} current="inicio" schema={[faqSchema]}>
   <!-- La foto principal del hero se pide de inmediato (mejora el LCP) -->
   <link
     slot="head"

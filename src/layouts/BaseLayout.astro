@@ -10,6 +10,7 @@ import IconSprite from '../components/IconSprite.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+import { ClientRouter, fade } from 'astro:transitions';
 
 interface Props {
   title?: string;
@@ -48,6 +49,9 @@ const { current, subpage = false, ...seo } = Astro.props;
       })();
     </script>
     <script is:inline defer src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+  
+    <ClientRouter/>
+  
   </head>
   <body class={subpage ? 'subpage' : undefined}>
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
