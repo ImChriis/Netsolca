@@ -1,4 +1,4 @@
-import { $$ } from './utils.js';
+import { $$, pageSignal } from './utils.js';
 
 /**
  * Marquee infinito: clona el grupo original (como `aria-hidden`) las veces
@@ -37,7 +37,7 @@ function setupMarquee(marquee) {
     if (window.innerWidth === lastWidth) return;
     lastWidth = window.innerWidth;
     build();
-  }, { passive: true });
+  }, { passive: true, signal: pageSignal() });
   // Las imágenes diferidas cambian el ancho al cargar: se recalcula una vez
   group.querySelectorAll('img').forEach((img) => img.addEventListener('load', build, { once: true }));
 }

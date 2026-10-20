@@ -1,4 +1,4 @@
-import { $, prefersReducedMotion } from './utils.js';
+import { $, pageSignal, prefersReducedMotion } from './utils.js';
 import { FIELD_NAMES, MESSAGE_MAX, validateField } from './validators.js';
 import { buildContactMessage } from './contact-message.js';
 import { whatsappUrl } from './quote-logic.js';
@@ -220,7 +220,7 @@ export function initContactForm({ number = '' } = {}) {
       block: 'start',
     });
     field('nombre')?.focus({ preventScroll: true });
-  });
+  }, { signal: pageSignal() });
 
   updateCounter();
 }

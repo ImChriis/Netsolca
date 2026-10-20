@@ -1,4 +1,4 @@
-import { $$, prefersReducedMotion } from './utils.js';
+import { $$, onPageLeave, prefersReducedMotion } from './utils.js';
 
 const DURATION_MS = 1500;
 const formatter = new Intl.NumberFormat('es-VE');
@@ -49,4 +49,5 @@ export function initCounters() {
   }, { threshold: 0.6 });
 
   counters.forEach((el) => observer.observe(el));
+  onPageLeave(() => observer.disconnect());
 }

@@ -1,4 +1,4 @@
-import { $, $$, prefersReducedMotion } from './utils.js';
+import { $, $$, onPageLeave, pageSignal, prefersReducedMotion } from './utils.js';
 
 /**
  * Animaciones con Anime.js (v3, cargado bajo demanda desde cdnjs):
@@ -34,7 +34,9 @@ function loadAnime() {
  * @param {{ onEnter: () => void, onLeave?: () => void, threshold?: number }} handlers
  */
 function watch(el, { onEnter, onLeave = () => {}, threshold = 0.3 }) {
-  new IntersectionObserver(([entry]) => (entry.isIntersecting ? onEnter() : onLeave()), { threshold }).observe(el);
+  const observer = new IntersectionObserver(([entry]) => (entry.isIntersecting ? onEnter() : onLeave()), { threshold });
+  observer.observe(el);
+  onPageLeave(() => { observer.disconnect(); onLeave(); });
 }
 
 /* ------------------------------------------------------------------ */
@@ -102,12 +104,13 @@ function initProcess(anime) {
     if (!played) return;
     anime.set(fill, { scaleX: 1, scaleY: 1 });
     runPacket();
-  });
+  }, { signal: pageSignal() });
   let resizeTimer;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => { if (played) runPacket(); }, 250);
-  }, { passive: true });
+  }, { passive: true, signal: pageSignal() });
+  onPageLeave(() => clearTimeout(resizeTimer));
 }
 
 /* ------------------------------------------------------------------ */
@@ -222,7 +225,7 @@ function initLiveMockup(anime) {
 
   if (line) line.setAttribute('d', lineD(heights));
   watch(svg, { threshold: 0.2, onEnter: start, onLeave: stop });
-  document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+  document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()), { signal: pageSignal() });
 }
 
 /** Inicializa las animaciones avanzadas (si el usuario no pidió movimiento reducido). */

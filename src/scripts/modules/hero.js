@@ -1,4 +1,4 @@
-import { $, clamp, prefersReducedMotion } from './utils.js';
+import { $, clamp, onPageLeave, pageSignal, prefersReducedMotion } from './utils.js';
 
 const EASE = 0.08;       // suavizado del parallax (lerp)
 const SETTLE = 0.001;    // umbral para detener el bucle de animación
@@ -57,9 +57,12 @@ export function initHero() {
       scrollTicking = false;
     });
   };
-  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('scroll', onScroll, { passive: true, signal: pageSignal() });
+  onPageLeave(() => cancelAnimationFrame(raf));
 
   if ('IntersectionObserver' in window) {
-    new IntersectionObserver(([entry]) => { inView = entry.isIntersecting; }).observe(hero);
+    const observer = new IntersectionObserver(([entry]) => { inView = entry.isIntersecting; });
+    observer.observe(hero);
+    onPageLeave(() => observer.disconnect());
   }
 }

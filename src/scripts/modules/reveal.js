@@ -1,4 +1,4 @@
-import { $$, prefersReducedMotion } from './utils.js';
+import { $$, onPageLeave, prefersReducedMotion } from './utils.js';
 
 const STAGGER_MS = 80;
 const MAX_STAGGER_STEPS = 6;
@@ -45,4 +45,5 @@ export function initReveal() {
   }, { rootMargin: '0px 0px -8% 0px', threshold: 0.1 });
 
   items.forEach((el) => observer.observe(el));
+  onPageLeave(() => observer.disconnect());
 }

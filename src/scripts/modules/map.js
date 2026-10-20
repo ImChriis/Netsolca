@@ -1,4 +1,4 @@
-import { $, prefersReducedMotion } from './utils.js';
+import { $, onPageLeave, prefersReducedMotion } from './utils.js';
 
 const LEAFLET = Object.freeze({
   css: 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
@@ -55,6 +55,7 @@ export function initMap({ lat, lng, zoom = 16, label = 'Maracaibo, Zulia, Venezu
   const build = async () => {
     try {
       const L = await loadLeaflet();
+      if (!canvas.isConnected) return; // se salió de la página mientras cargaba
       const center = [lat, lng];
       const map = L.map(canvas, {
         center,
@@ -64,6 +65,7 @@ export function initMap({ lat, lng, zoom = 16, label = 'Maracaibo, Zulia, Venezu
         zoomControl: false,
         attributionControl: true,
       });
+      onPageLeave(() => map.remove());
       L.control.zoom({ position: 'bottomright', zoomInTitle: 'Acercar', zoomOutTitle: 'Alejar' }).addTo(map);
       L.tileLayer(TILES, { attribution: ATTRIBUTION, maxZoom: 19 }).addTo(map);
 
@@ -100,4 +102,5 @@ export function initMap({ lat, lng, zoom = 16, label = 'Maracaibo, Zulia, Venezu
     build();
   }, { rootMargin: '400px 0px' });
   observer.observe(box);
+  onPageLeave(() => observer.disconnect());
 }
