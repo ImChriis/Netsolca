@@ -130,7 +130,7 @@ export const services: Service[] = [
     ],
     "idealFor": "vendes por redes sociales y quieres ordenar tus ventas.",
     "photo": "/assets/img/servicios/tiendas",
-    "photoAlt": "Persona pagando con tarjeta una compra en línea desde su laptop",
+    "photoAlt": "Tienda en línea abierta en una tablet junto a tarjetas de pago",
     "group": "presencia",
     "featuredOnHome": true
   },
@@ -149,7 +149,7 @@ export const services: Service[] = [
     ],
     "idealFor": "llevas el control en hojas de cálculo o ningún programa comercial se adapta a lo que hace tu empresa.",
     "photo": "/assets/img/servicios/sistemas",
-    "photoAlt": "Equipo de desarrollo programando un sistema a la medida",
+    "photoAlt": "Laptop con el código de un sistema a la medida en pantalla",
     "group": "sistemas",
     "featuredOnHome": true
   },

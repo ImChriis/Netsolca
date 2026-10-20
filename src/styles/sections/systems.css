@@ -1,7 +1,8 @@
 /* =========================================================
    SERVICIOS · columnas separadas por líneas finas.
    La foto se ve como franja superior; al pasar el mouse (o enfocar)
-   se expande hasta cubrir la columna, con velo azul y texto blanco.
+   se acerca un poco y la tarjeta pasa a azul profundo con texto blanco.
+   El texto nunca queda sobre la foto, para que siempre se lea bien.
    ========================================================= */
 .systems { padding-bottom: 0; }
 .systems .section-head { margin-bottom: clamp(2.5rem, 2rem + 2vw, 3.5rem); }
@@ -15,7 +16,6 @@
 .system {
   /* Alto de la franja con la foto */
   --media-h: clamp(170px, 12vw + 40px, 210px);
-  --clip-rest: inset(0 0 calc(100% - var(--media-h)) 0);
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -30,27 +30,26 @@
 }
 .system:nth-child(4n) { border-right: 0; }
 
-/* Foto: franja superior en reposo, columna completa en hover */
+/* Foto: franja superior. Se acerca desde el borde inferior, así no invade el texto */
 .system__bg {
   position: absolute;
-  inset: 0;
+  inset: 0 0 auto;
   z-index: -2;
   width: 100%;
-  height: 100%;
+  height: var(--media-h);
   object-fit: cover;
-  clip-path: var(--clip-rest);
-  scale: 1.04;
-  transition: clip-path 0.6s var(--ease-out), scale 1.2s var(--ease-out), filter 0.4s ease;
+  transform-origin: 50% 100%;
+  transition: scale 0.9s var(--ease-out);
 }
-/* Velo: degradado suave sobre la franja; azul profundo en hover */
+/* Velo sobre la franja: leve en reposo, tinte de marca en hover */
 .system::before {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: 0 0 auto;
   z-index: -1;
-  clip-path: var(--clip-rest);
-  background: linear-gradient(180deg, rgb(6 15 46 / 0) 0, rgb(6 15 46 / 0.35) var(--media-h), rgb(6 15 46 / 0.94) 100%);
-  transition: clip-path 0.6s var(--ease-out), background-color 0.3s ease;
+  height: var(--media-h);
+  background: linear-gradient(180deg, rgb(6 15 46 / 0) 40%, rgb(6 15 46 / 0.35));
+  transition: background-color 0.35s ease;
 }
 /* Acento de esquina en cian, como en la referencia */
 .system::after {
@@ -128,26 +127,26 @@
 /* Estado activo: hover con mouse o foco con teclado */
 @media (hover: hover) {
   .system:hover { background: var(--navy-900); }
-  .system:hover .system__bg { clip-path: inset(0); scale: 1; }
-  .system:hover::before { clip-path: inset(0); }
+  .system:hover .system__bg { scale: 1.08; }
+  .system:hover::before { background-color: rgb(24 200 240 / 0.12); }
   .system:hover::after { opacity: 1; scale: 1; }
-  .system:hover .system__icon { background: rgb(24 200 240 / 0.16); color: var(--cyan-300); translate: 0 -6px; box-shadow: none; }
+  .system:hover .system__icon { background: var(--cyan-400); color: var(--navy-900); translate: 0 -4px; }
   .system:hover .system__title { color: var(--white); }
   .system:hover .system__text { color: var(--text-on-dark); }
   .system:hover :is(.system__sub, .system__link) { color: var(--cyan-300); }
   .system:hover .system__link svg { translate: 4px 0; }
 }
 .system:focus-within { background: var(--navy-900); --focus: var(--cyan-400); }
-.system:focus-within .system__bg { clip-path: inset(0); scale: 1; }
-.system:focus-within::before { clip-path: inset(0); }
+.system:focus-within .system__bg { scale: 1.08; }
 .system:focus-within::after { opacity: 1; scale: 1; }
-.system:focus-within .system__icon { background: rgb(24 200 240 / 0.16); color: var(--cyan-300); box-shadow: none; }
+.system:focus-within .system__icon { background: var(--cyan-400); color: var(--navy-900); }
 .system:focus-within .system__title { color: var(--white); }
 .system:focus-within .system__text { color: var(--text-on-dark); }
 .system:focus-within :is(.system__sub, .system__link) { color: var(--cyan-300); }
 
 @media (prefers-reduced-motion: reduce) {
-  .system__bg, .system::before { transition: none; }
+  .system__bg { transition: none; }
+  .system:hover .system__bg, .system:focus-within .system__bg { scale: 1; }
 }
 
 @media (max-width: 1079.98px) {
