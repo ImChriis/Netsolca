@@ -73,6 +73,25 @@
 .member__name a:hover { text-decoration: underline; }
 .member__role { font-family: var(--font-display); font-weight: 600; color: var(--cyan-600); }
 .member__bio { margin-top: 0.35rem; font-size: var(--fs-sm); color: var(--text-muted); }
+.member__body { grid-template-rows: auto auto 1fr auto; }
+.member__github {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  min-height: 44px;
+  margin-top: 0.5rem;
+  padding: 0 0.9rem 0 0.7rem;
+  border: 1px solid var(--mist-200);
+  border-radius: 999px;
+  color: var(--ink);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color var(--dur-fast), color var(--dur-fast), border-color var(--dur-fast);
+}
+.member__github svg { width: 20px; height: 20px; }
+.member__github:hover { background: var(--navy-900); border-color: var(--navy-900); color: var(--white); }
 
 /* Proceso y clientes como secciones propias */
 .section > .container > .process:first-child { margin-top: 0; }

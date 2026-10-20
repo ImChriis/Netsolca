@@ -12,27 +12,33 @@ export interface TeamMember {
   photo?: string;
   /** Perfil de LinkedIn o Instagram (opcional) */
   link?: string;
+  /** Perfil de GitHub (opcional) */
+  github?: string;
 }
 
 export const team: TeamMember[] = [
   {
-    name: '[Nombre y apellido]',
-    role: 'Dirección general',
+    name: 'Christopher Medina',
+    role: 'CEO',
+    github: 'https://github.com/ImChriis',
     bio: 'Coordina cada proyecto y es el contacto principal de nuestros clientes.',
   },
   {
-    name: '[Nombre y apellido]',
-    role: 'Desarrollo de software',
+    name: 'Juan Matute',
+    role: 'Frontend y QA',
+    github: 'https://github.com/Matute3110',
     bio: 'Diseña y programa los sistemas, páginas y tiendas en línea.',
   },
   {
-    name: '[Nombre y apellido]',
-    role: 'Redes e infraestructura',
+    name: 'Jose Hernandez',
+    role: 'Backend y DevOps',
+    github: 'https://github.com/iFlam3',
     bio: 'Instala y mantiene redes, equipos y servidores de nuestros clientes.',
   },
   {
-    name: '[Nombre y apellido]',
-    role: 'Soporte y atención al cliente',
+    name: 'Manuel Diaz',
+    role: 'Backend Lead',
+    github: 'https://github.com/ManuDev01',
     bio: 'Atiende tus consultas y resuelve incidencias a cualquier hora.',
   },
 ];

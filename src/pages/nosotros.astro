@@ -131,6 +131,13 @@ const schema = [
               </h3>
               <p class="member__role">{member.role}</p>
               <p class="member__bio">{member.bio}</p>
+              {member.github && (
+                <a class="member__github" href={member.github} target="_blank" rel="noopener">
+                  <svg aria-hidden="true"><use href="#i-github" /></svg>
+                  <span>{member.github.replace('https://github.com/', '')}</span>
+                  <span class="sr-only"> en GitHub</span>
+                </a>
+              )}
             </div>
           </li>
         ))}
