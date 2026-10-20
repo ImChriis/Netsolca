@@ -1,7 +1,7 @@
 /* =========================================================
    SERVICIOS · columnas separadas por líneas finas.
-   Al pasar el mouse (o enfocar) aparece la foto del sistema
-   sobre azul profundo y el texto pasa a blanco.
+   La foto se ve como franja superior; al pasar el mouse (o enfocar)
+   se expande hasta cubrir la columna, con velo azul y texto blanco.
    ========================================================= */
 .systems { padding-bottom: 0; }
 .systems .section-head { margin-bottom: clamp(2.5rem, 2rem + 2vw, 3.5rem); }
@@ -13,21 +13,24 @@
 }
 
 .system {
+  /* Alto de la franja con la foto */
+  --media-h: clamp(170px, 12vw + 40px, 210px);
+  --clip-rest: inset(0 0 calc(100% - var(--media-h)) 0);
   position: relative;
   isolation: isolate;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  min-height: 420px;
-  padding: clamp(2rem, 1.5rem + 1.5vw, 3rem) clamp(1.5rem, 1rem + 1.5vw, 2.5rem);
+  min-height: 500px;
+  padding: calc(var(--media-h) + 2.6rem) clamp(1.5rem, 1rem + 1.5vw, 2.5rem) clamp(1.75rem, 1.4rem + 1vw, 2.5rem);
   border-right: 1px solid var(--mist-200);
   border-bottom: 1px solid var(--mist-200);
   background: var(--white);
-  transition: background-color 0.2s ease;
+  transition: background-color 0.25s ease;
 }
 .system:nth-child(4n) { border-right: 0; }
 
-/* Foto + velo azul (ocultos hasta el hover) */
+/* Foto: franja superior en reposo, columna completa en hover */
 .system__bg {
   position: absolute;
   inset: 0;
@@ -35,20 +38,21 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0 !important; /* gana al fundido de imágenes diferidas */
-  scale: 1.08;
-  transition: opacity 0.45s ease 0.08s, scale 1.2s var(--ease-out);
+  clip-path: var(--clip-rest);
+  scale: 1.04;
+  transition: clip-path 0.6s var(--ease-out), scale 1.2s var(--ease-out), filter 0.4s ease;
 }
+/* Velo: degradado suave sobre la franja; azul profundo en hover */
 .system::before {
   content: "";
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: linear-gradient(180deg, rgb(10 22 64 / 0.78), rgb(6 15 46 / 0.94));
-  opacity: 0;
-  transition: opacity 0.22s ease;
+  clip-path: var(--clip-rest);
+  background: linear-gradient(180deg, rgb(6 15 46 / 0) 0, rgb(6 15 46 / 0.35) var(--media-h), rgb(6 15 46 / 0.94) 100%);
+  transition: clip-path 0.6s var(--ease-out), background-color 0.3s ease;
 }
-/* Acentos de esquina en cian, como en la referencia */
+/* Acento de esquina en cian, como en la referencia */
 .system::after {
   content: "";
   position: absolute;
@@ -63,17 +67,26 @@
   transition: opacity 0.4s ease, scale 0.6s var(--ease-out);
 }
 
+/* Ícono en el borde de la foto */
 .system__icon {
-  display: block;
-  margin-bottom: clamp(3rem, 2rem + 3vw, 5rem);
+  position: absolute;
+  top: calc(var(--media-h) - 30px);
+  left: clamp(1.5rem, 1rem + 1.5vw, 2.5rem);
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  background: var(--white);
   color: var(--cyan-600);
-  transition: color 0.2s ease, translate 0.5s var(--ease-out);
+  box-shadow: 0 14px 30px -14px rgb(10 22 64 / 0.55);
+  transition: background-color 0.3s ease, color 0.3s ease, translate 0.6s var(--ease-out);
 }
-.system__icon svg { width: 46px; height: 46px; stroke-width: 1.5; }
+.system__icon svg { width: 30px; height: 30px; stroke-width: 1.6; }
 
 .system__body { display: flex; flex: 1; flex-direction: column; gap: 0.5rem; }
 .system__title {
-  font-size: clamp(1.45rem, 1.2rem + 0.8vw, 1.85rem);
+  font-size: clamp(1.4rem, 1.15rem + 0.8vw, 1.8rem);
   line-height: 1.1;
   transition: color 0.2s ease;
 }
@@ -108,40 +121,44 @@
   color: var(--cyan-600);
   transition: color 0.2s ease;
 }
+/* Toda la columna es clicable (el enlace cubre la tarjeta) */
+.system__link::before { content: ""; position: absolute; inset: 0; z-index: 1; }
 .system__link svg { width: 18px; height: 18px; transition: translate 0.3s var(--ease-out); }
 
 /* Estado activo: hover con mouse o foco con teclado */
 @media (hover: hover) {
   .system:hover { background: var(--navy-900); }
-  .system:hover .system__bg { opacity: 1 !important; scale: 1; }
-  .system:hover::before { opacity: 1; }
+  .system:hover .system__bg { clip-path: inset(0); scale: 1; }
+  .system:hover::before { clip-path: inset(0); }
   .system:hover::after { opacity: 1; scale: 1; }
-  .system:hover .system__icon { color: var(--cyan-400); translate: 0 -4px; }
-  .system:hover :is(.system__title, .system__text) { color: var(--white); }
+  .system:hover .system__icon { background: rgb(24 200 240 / 0.16); color: var(--cyan-300); translate: 0 -6px; box-shadow: none; }
+  .system:hover .system__title { color: var(--white); }
   .system:hover .system__text { color: var(--text-on-dark); }
   .system:hover :is(.system__sub, .system__link) { color: var(--cyan-300); }
   .system:hover .system__link svg { translate: 4px 0; }
 }
-.system:focus-within { background: var(--navy-900); }
-.system:focus-within .system__bg { opacity: 1 !important; scale: 1; }
-.system:focus-within::before,
+.system:focus-within { background: var(--navy-900); --focus: var(--cyan-400); }
+.system:focus-within .system__bg { clip-path: inset(0); scale: 1; }
+.system:focus-within::before { clip-path: inset(0); }
 .system:focus-within::after { opacity: 1; scale: 1; }
-.system:focus-within .system__icon { color: var(--cyan-400); }
+.system:focus-within .system__icon { background: rgb(24 200 240 / 0.16); color: var(--cyan-300); box-shadow: none; }
 .system:focus-within .system__title { color: var(--white); }
 .system:focus-within .system__text { color: var(--text-on-dark); }
 .system:focus-within :is(.system__sub, .system__link) { color: var(--cyan-300); }
-.system:focus-within { --focus: var(--cyan-400); }
+
+@media (prefers-reduced-motion: reduce) {
+  .system__bg, .system::before { transition: none; }
+}
 
 @media (max-width: 1079.98px) {
   .systems__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .system { min-height: 360px; }
+  .system { min-height: 460px; }
   .system:nth-child(4n) { border-right: 1px solid var(--mist-200); }
   .system:nth-child(2n) { border-right: 0; }
 }
 @media (max-width: 599.98px) {
   .systems__grid { grid-template-columns: 1fr; }
-  .system { min-height: 0; border-right: 0 !important; }
-  .system__icon { margin-bottom: 1.5rem; }
+  .system { --media-h: 200px; min-height: 0; border-right: 0 !important; }
 }
 
 /* =========================================================

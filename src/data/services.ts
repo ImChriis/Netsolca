@@ -11,8 +11,13 @@ export interface Service {
   intro: string;
   includes: string[];
   idealFor: string;
-  /** Id de la foto en Unsplash (reemplazar por fotos propias cuando existan) */
+  /**
+   * Foto propia sin extensión: /assets/img/servicios/erp → erp-640.webp y erp-1200.webp (4:3).
+   * También acepta el id de una foto de Unsplash.
+   */
   photo: string;
+  /** Descripción de la foto (accesibilidad y SEO) */
+  photoAlt?: string;
   group: 'sistemas' | 'presencia';
   featuredOnHome: boolean;
 }
@@ -32,7 +37,8 @@ export const services: Service[] = [
       "Conexión con facturación, pagos y otras herramientas"
     ],
     "idealFor": "tu información está repartida entre hojas de cálculo y programas distintos.",
-    "photo": "1460925895917-afdab827c52f",
+    "photo": "/assets/img/servicios/erp",
+    "photoAlt": "Laptop con un panel de ventas y gráficos de la empresa",
     "group": "sistemas",
     "featuredOnHome": false
   },
@@ -104,7 +110,8 @@ export const services: Service[] = [
       "Dominio, alojamiento y correo con tu nombre"
     ],
     "idealFor": "tus clientes te buscan en internet y todavía no te encuentran.",
-    "photo": "1559526324-4b87b5e36e44",
+    "photo": "/assets/img/servicios/paginas",
+    "photoAlt": "Página web que se adapta a monitor, tablet y teléfono",
     "group": "presencia",
     "featuredOnHome": true
   },
@@ -122,7 +129,8 @@ export const services: Service[] = [
       "Avisos de pedidos nuevos por correo o WhatsApp"
     ],
     "idealFor": "vendes por redes sociales y quieres ordenar tus ventas.",
-    "photo": "1607082348824-0a96f2a4b9da",
+    "photo": "/assets/img/servicios/tiendas",
+    "photoAlt": "Persona pagando con tarjeta una compra en línea desde su laptop",
     "group": "presencia",
     "featuredOnHome": true
   },
@@ -140,7 +148,8 @@ export const services: Service[] = [
       "Paneles claros con la información de tu negocio en tiempo real"
     ],
     "idealFor": "llevas el control en hojas de cálculo o ningún programa comercial se adapta a lo que hace tu empresa.",
-    "photo": "1460925895917-afdab827c52f",
+    "photo": "/assets/img/servicios/sistemas",
+    "photoAlt": "Equipo de desarrollo programando un sistema a la medida",
     "group": "sistemas",
     "featuredOnHome": true
   },
@@ -158,7 +167,8 @@ export const services: Service[] = [
       "Solución de errores de Windows, virus y configuración de dispositivos"
     ],
     "idealFor": "necesitas que las computadoras de tu negocio o estudio funcionen al 100% sin perder tiempo en traslados.",
-    "photo": "1504639725590-34d0984388bd",
+    "photo": "/assets/img/servicios/soporte",
+    "photoAlt": "Técnico de soporte atendiendo una llamada frente a su computadora",
     "group": "presencia",
     "featuredOnHome": false
   },
@@ -176,7 +186,8 @@ export const services: Service[] = [
       "Asistencia remota inmediata o presencial cuando tu operación lo necesite"
     ],
     "idealFor": "trabajas con a2, Saint o GeniusNet (o quieres implementarlos) y necesitas un equipo certificado que responda rápido cuando la facturación o el sistema fallan.",
-    "photo": "1554224155-6726b3ff858f",
+    "photo": "/assets/img/servicios/sistemas-administrativos",
+    "photoAlt": "Documentos contables, facturas y calculadora sobre un escritorio",
     "group": "sistemas",
     "featuredOnHome": false
   },
@@ -194,7 +205,8 @@ export const services: Service[] = [
       "Revisión y mantenimiento preventivo periódico"
     ],
     "idealFor": "tus equipos se calientan, se ponen lentos o se dañan con frecuencia y quieres que duren más tiempo.",
-    "photo": "1520869562399-e772f042f422",
+    "photo": "/assets/img/servicios/mantenimiento",
+    "photoAlt": "Manos reparando la tarjeta de un equipo con un destornillador",
     "group": "presencia",
     "featuredOnHome": true
   },
@@ -212,7 +224,8 @@ export const services: Service[] = [
       "Revisión y mantenimiento periódico"
     ],
     "idealFor": "el internet se cae seguido o los equipos de la oficina están desordenados.",
-    "photo": "1520869562399-e772f042f422",
+    "photo": "/assets/img/servicios/redes",
+    "photoAlt": "Panel de red con cables azules conectados",
     "group": "presencia",
     "featuredOnHome": false
   },

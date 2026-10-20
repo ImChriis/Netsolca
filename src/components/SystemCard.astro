@@ -1,16 +1,30 @@
 ---
-/** Columna de servicio con foto al pasar el mouse (diseño ERP/MRP). */
+/**
+ * Columna de servicio: la foto se ve como franja superior y, al pasar el
+ * mouse (o enfocar con teclado), se expande hasta cubrir la columna.
+ */
 import type { Service } from '../data/services';
-import { photoUrl } from '../data/site';
+import { photoSources } from '../data/site';
 
 interface Props {
   service: Service;
   href: string;
 }
 const { service, href } = Astro.props;
+const { src, srcset } = photoSources(service.photo, 900, 675);
 ---
 <li class="system">
-  <img class="system__bg" src={photoUrl(service.photo, 640, 900)} alt="" width="640" height="900" loading="lazy" decoding="async" />
+  <img
+    class="system__bg"
+    src={src}
+    srcset={srcset}
+    sizes="(min-width: 1080px) 25vw, (min-width: 600px) 50vw, 100vw"
+    alt=""
+    width="1200"
+    height="900"
+    loading="lazy"
+    decoding="async"
+  />
   <span class="system__icon"><svg aria-hidden="true"><use href={`#${service.icon}`} /></svg></span>
   <div class="system__body">
     <h3 class="system__title">{service.title}</h3>

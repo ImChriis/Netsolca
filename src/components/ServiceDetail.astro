@@ -1,16 +1,17 @@
 ---
 /** Ficha completa de un servicio en /servicios (ancla #id). */
 import type { Service } from '../data/services';
-import { photoUrl, WHATSAPP_URL } from '../data/site';
+import { photoSources, WHATSAPP_URL } from '../data/site';
 
 interface Props {
   service: Service;
 }
 const { service } = Astro.props;
+const { src, srcset } = photoSources(service.photo, 900, 700);
 ---
 <article class="detail" id={service.id} aria-labelledby={`${service.id}-title`}>
   <figure class="detail__media">
-    <img src={photoUrl(service.photo, 900, 700)} alt="" width="900" height="700" loading="lazy" decoding="async" />
+    <img src={src} srcset={srcset} sizes="(min-width: 860px) 45vw, 100vw" alt={service.photoAlt ?? ''} width="1200" height="900" loading="lazy" decoding="async" />
   </figure>
   <div class="detail__body">
     <span class="detail__icon"><svg aria-hidden="true"><use href={`#${service.icon}`} /></svg></span>

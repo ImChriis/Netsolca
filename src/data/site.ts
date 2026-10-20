@@ -62,3 +62,18 @@ export function photoUrl(photo: string, width: number, height: number, quality =
   if (photo.startsWith('/')) return photo;
   return `https://images.unsplash.com/photo-${photo}?auto=format&fit=crop&w=${width}&h=${height}&q=${quality}`;
 }
+
+/**
+ * src y srcset de una foto. Las propias (/assets/img/servicios/erp) tienen
+ * dos tamaños en WebP: -640.webp y -1200.webp; las de Unsplash se piden al CDN.
+ */
+export function photoSources(photo: string, width: number, height: number): { src: string; srcset: string } {
+  if (photo.startsWith('/')) {
+    return { src: `${photo}-1200.webp`, srcset: `${photo}-640.webp 640w, ${photo}-1200.webp 1200w` };
+  }
+  const half = (n: number) => Math.round(n / 2);
+  return {
+    src: photoUrl(photo, width, height),
+    srcset: `${photoUrl(photo, half(width), half(height))} ${half(width)}w, ${photoUrl(photo, width, height)} ${width}w`,
+  };
+}
