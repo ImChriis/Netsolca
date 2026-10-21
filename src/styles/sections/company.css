@@ -60,12 +60,12 @@
   display: grid;
   place-items: center;
   margin: 0;
-  aspect-ratio: 1;
+  aspect-ratio: 3 / 4;
   background:
     radial-gradient(70% 70% at 80% 10%, rgb(24 200 240 / 0.25), transparent 70%),
     linear-gradient(165deg, var(--navy-800), var(--navy-950));
 }
-.member__photo img { width: 100%; height: 100%; object-fit: cover; }
+.member__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
 .member__photo .member__mark { width: 46%; height: auto; object-fit: contain; opacity: 0.9; }
 .member__body { display: grid; align-content: start; gap: 0.3rem; padding: 1.25rem 1.35rem 1.5rem; }
 .member__name { font-size: var(--fs-lg); }
@@ -74,13 +74,13 @@
 .member__role { font-family: var(--font-display); font-weight: 600; color: var(--cyan-600); }
 .member__bio { margin-top: 0.35rem; font-size: var(--fs-sm); color: var(--text-muted); }
 .member__body { grid-template-rows: auto auto 1fr auto; }
-.member__github {
+.member__links { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+.member__profile {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   justify-self: start;
   min-height: 44px;
-  margin-top: 0.5rem;
   padding: 0 0.9rem 0 0.7rem;
   border: 1px solid var(--mist-200);
   border-radius: 999px;
@@ -90,8 +90,8 @@
   text-decoration: none;
   transition: background-color var(--dur-fast), color var(--dur-fast), border-color var(--dur-fast);
 }
-.member__github svg { width: 20px; height: 20px; }
-.member__github:hover { background: var(--navy-900); border-color: var(--navy-900); color: var(--white); }
+.member__profile svg { width: 20px; height: 20px; }
+.member__profile:hover { background: var(--navy-900); border-color: var(--navy-900); color: var(--white); }
 
 /* Proceso y clientes como secciones propias */
 .section > .container > .process:first-child { margin-top: 0; }

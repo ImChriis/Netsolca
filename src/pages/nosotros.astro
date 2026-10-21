@@ -122,7 +122,7 @@ const schema = [
           <li class="member">
             <figure class="member__photo">
               {member.photo
-                ? <img src={member.photo} alt={`${member.name}, ${member.role}`} width="600" height="600" loading="lazy" decoding="async" />
+                ? <img src={member.photo} alt={`${member.name}, ${member.role}`} width="600" height="800" loading="lazy" decoding="async" />
                 : <img class="member__mark" src="/assets/img/logo-n-blanco.png" alt="" width="700" height="440" loading="lazy" decoding="async" />}
             </figure>
             <div class="member__body">
@@ -131,12 +131,23 @@ const schema = [
               </h3>
               <p class="member__role">{member.role}</p>
               <p class="member__bio">{member.bio}</p>
-              {member.github && (
-                <a class="member__github" href={member.github} target="_blank" rel="noopener">
-                  <svg aria-hidden="true"><use href="#i-github" /></svg>
-                  <span>{member.github.replace('https://github.com/', '')}</span>
-                  <span class="sr-only"> en GitHub</span>
-                </a>
+              {(member.github || member.linkedin) && (
+                <div class="member__links">
+                  {member.github && (
+                    <a class="member__profile" href={member.github} target="_blank" rel="noopener">
+                      <svg aria-hidden="true"><use href="#i-github" /></svg>
+                      <span>GitHub</span>
+                      <span class="sr-only"> de {member.name}</span>
+                    </a>
+                  )}
+                  {member.linkedin && (
+                    <a class="member__profile" href={member.linkedin} target="_blank" rel="noopener">
+                      <svg aria-hidden="true"><use href="#i-linkedin" /></svg>
+                      <span>LinkedIn</span>
+                      <span class="sr-only"> de {member.name}</span>
+                    </a>
+                  )}
+                </div>
               )}
             </div>
           </li>
