@@ -16,6 +16,7 @@ const { project } = Astro.props;
     <p class="detail__sub">{project.sector}</p>
     <h2 class="detail__title" id={`${project.id}-title`}>{project.title}</h2>
     <p class="detail__client">Cliente: {project.client}</p>
+    <p class="detail__status">Estado: {project.status}</p>
     <h3 class="detail__label">El problema</h3>
     <p class="detail__intro">{project.problem}</p>
     <h3 class="detail__label">Lo que hicimos</h3>

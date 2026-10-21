@@ -140,4 +140,68 @@ export const projects: Project[] = [
     "photo": "/assets/img/proyectos/catedra.jpg",
     "alt": "Persona escaneando un código QR con un teléfono en un evento"
   },
+  {
+    "id": "almendra-details",
+    "sector": "Comercio / Regalos",
+    "title": "Tienda en línea y panel administrativo para florería",
+    "client": "Almendra Details · Comercio",
+    "status": "En desarrollo",
+    "problem": "Gestionar los pedidos de ramos y arreglos por redes sociales desorganizaba las ventas y complicaba el control diario de caja.",
+    "solution": [
+      "Catálogo en línea de ramos de flores, cajas y arreglos personalizados",
+      "Panel administrativo para control de ventas, estatus de pedidos y gestión de pagos",
+      "Generación de reportes claros para la administración del negocio"
+    ],
+    "results": "Orden total en la recepción de pedidos, control exacto de los ingresos y una tienda abierta las 24 horas para los clientes.",
+    "photo": "/assets/img/proyectos/almendra.jpeg",
+    "alt": "Hermoso arreglo floral y caja de regalo sobre una mesa"
+  },
+  {
+    "id": "next-gen",
+    "sector": "Deportes y Gestión",
+    "title": "Plataforma de gestión para academias, eventos y torneos de fútbol",
+    "client": "Next Gen · Deportes",
+    "status": "En desarrollo",
+    "problem": "Llevar el registro de inscripciones, control de atletas y la organización de partidos o torneos en planillas o chats dispersos complicaba la administración.",
+    "solution": [
+      "Módulo de gestión integral para academias de fútbol y control de alumnos",
+      "Organización y seguimiento de torneos, calendarios de partidos y resultados",
+      "Panel administrativo centralizado para inscripciones, pagos y estadísticas"
+    ],
+    "results": "Automatización de la operatividad deportiva, control centralizado de los torneos y una gestión profesional para la academia.",
+    "photo": "/assets/img/proyectos/nextgen.jpeg",
+    "alt": "Cancha de fútbol iluminada lista para un torneo"
+  },
+  {
+    "id": "tickets-qr-app",
+    "sector": "Entretenimiento y Eventos",
+    "title": "Sistema de venta de entradas digitales y app de validación QR",
+    "client": "Organizador de eventos · Entretenimiento",
+    "status": "En desarrollo",
+    "problem": "Vender entradas por redes sociales para eventos esporádicos complicaba la validación de pagos y generaba retrasos y riesgos de fraudes en la puerta.",
+    "solution": [
+      "Plataforma web de venta de entradas con envío automático de pases QR por correo",
+      "Panel administrativo para control de asistentes, registros y aprobación de pagos",
+      "Aplicación móvil exclusiva para escanear y validar entradas de forma rápida en la puerta"
+    ],
+    "results": "Automatización completa del proceso de venta y control de acceso 100% seguro sin filas largas ni listas de papel.",
+    "photo": "/assets/img/proyectos/eventos.jpeg",
+    "alt": "Teléfono inteligente mostrando un código QR en la entrada de un evento"
+  },
+  {
+    "id": "erp-netsolca",
+    "sector": "Tecnología / Software",
+    "title": "Sistema ERP integral en la nube (Producto propio)",
+    "client": "NETSOLCA · Solución propia",
+    "status": "En desarrollo",
+    "problem": "Los programas administrativos tradicionales atan al dueño de negocio a un computador fijo en la oficina y se quedan cortos frente a las necesidades de gestión moderna y multimoneda.",
+    "solution": [
+      "Arquitectura web moderna para centralizar inventario, ventas, compras y caja",
+      "Control avanzado de operaciones en múltiples monedas y tasas de cambio",
+      "Panel gerencial con reportes en tiempo real y acceso seguro 24/7 desde cualquier dispositivo"
+    ],
+    "results": "Desarrollo de una solución propia y escalable para unificar toda la operatividad de una empresa en una sola plataforma.",
+    "photo": "/assets/img/proyectos/netsolca.jpg",
+    "alt": "Arquitectura de software y panel de control del ERP en desarrollo"
+  },
 ];

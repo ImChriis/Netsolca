@@ -229,4 +229,42 @@ export const services: Service[] = [
     "group": "presencia",
     "featuredOnHome": false
   },
+  {
+    "id": "cursos-programacion",
+    "icon": "i-code",
+    "title": "Adiestramiento y Cursos de Programación",
+    "subtitle": "Capacitación competitiva en tecnologías de alta demanda",
+    "summary": "Formamos a futuros programadores y equipos de trabajo en lenguajes modernos y frameworks actuales, con enfoque práctico y certificado.",
+    "intro": "Lleva tus habilidades o las de tu equipo al siguiente nivel con cursos especializados en desarrollo de software, dictados por profesionales con experiencia real en la industria.",
+    "includes": [
+      "Clases prácticas en Java, Python, PHP y bases de datos",
+      "Desarrollo web moderno con frameworks actuales (frontend y backend)",
+      "Enfoque 100% práctico basado en proyectos reales del mercado",
+      "Certificado de participación avalado al completar el programa"
+    ],
+    "idealFor": "quieres aprender a programar desde cero, subir de nivel profesional o capacitar al personal técnico de tu empresa.",
+    "photo": "/assets/img/servicios/cursos",
+    "photoAlt": "Programador escribiendo código en un monitor con múltiples pantallas",
+    "group": "presencia",
+    "featuredOnHome": false
+  },
+  {
+    "id": "redes-sociales",
+    "icon": "i-users",
+    "title": "Manejo de Redes Sociales",
+    "subtitle": "Impulsa tu marca en Instagram y TikTok",
+    "summary": "Creamos contenido visual, videos, reels y publicaciones estratégicas para conectar con tus clientes y hacer crecer tu negocio en internet.",
+    "intro": "No basta con tener redes sociales, hay que saber moverlas. Nos encargamos de la estrategia, el contenido y la constancia para que tu marca destaque en Instagram y TikTok.",
+    "includes": [
+      "Diseño de publicaciones atractivas y alineadas con tu marca",
+      "Producción, edición y estrategia de videos, reels y TikToks",
+      "Planificación y calendario mensual de contenido",
+      "Gestión y redacción de copys orientados a ventas y atracción"
+    ],
+    "idealFor": "no tienes tiempo para subir contenido constante a tus redes o quieres que tu negocio se vea más profesional en internet.",
+    "photo": "/assets/img/servicios/redes-sociales",
+    "photoAlt": "Teléfono inteligente mostrando redes sociales y contenido digital",
+    "group": "presencia",
+    "featuredOnHome": false
+  },
 ];
