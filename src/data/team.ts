@@ -1,7 +1,7 @@
 /**
  * Equipo de NETSOLCA (página /nosotros).
  * PLACEHOLDER: reemplaza nombre, cargo, descripción y foto de cada persona.
- * Las fotos van en public/assets/img/equipo/ (verticales 3:4, 600×800 en WebP).
+ * Las fotos van en public/assets/img/equipo/ (verticales 3:4, 900×1200 en WebP).
  * Sin foto, se muestra la "N" de la marca.
  */
 export interface TeamMember {
