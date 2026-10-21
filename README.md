@@ -108,6 +108,6 @@ El formulario no usa servidor: al enviarlo se valida y se abre WhatsApp (`wa.me`
 ## Editar contenido
 
 - **Agregar un proyecto o servicio:** añade un objeto al arreglo en `src/data/projects.ts` o `src/data/services.ts`. La tarjeta, la ficha de detalle, el inicio y los datos para Google se actualizan solos.
-- **Cambiar la foto de un servicio:** guarda dos versiones 4:3 en WebP en `public/assets/img/servicios/` (`nombre-640.webp` y `nombre-1200.webp`) y pon `"photo": "/assets/img/servicios/nombre"` en `src/data/services.ts`, con su `photoAlt`.
+- **Cambiar una foto (servicios, equipo, inicio):** cada foto va en dos formatos y en los tamaños que use: `nombre-640.webp` y `nombre-640.jpg`, `nombre-1200.webp` y `nombre-1200.jpg` (servicios 4:3; equipo 3:4 en 600 y 900). En los datos se pone la ruta sin tamaño ni extensión, por ejemplo `"photo": "/assets/img/servicios/erp"`. El WebP es para navegadores modernos y el JPEG para iPhone/Mac antiguos: si falta el JPEG, esos equipos no ven la foto.
 - **Cambiar colores o tipografía:** edita `src/styles/tokens.css`.
 - **Cambiar la imagen al compartir:** reemplaza `public/og-image.png` (1200×630 px).

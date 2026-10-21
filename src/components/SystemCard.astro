@@ -5,26 +5,22 @@
  */
 import type { Service } from '../data/services';
 import { photoSources } from '../data/site';
+import Picture from './Picture.astro';
 
 interface Props {
   service: Service;
   href: string;
 }
 const { service, href } = Astro.props;
+// Fotos propias: WebP + JPEG. Ids de Unsplash: el CDN elige el formato según el navegador.
+const local = service.photo.startsWith('/');
 const { src, srcset } = photoSources(service.photo, 900, 675);
+const sizes = '(min-width: 1080px) 25vw, (min-width: 600px) 50vw, 100vw';
 ---
 <li class="system">
-  <img
-    class="system__bg"
-    src={src}
-    srcset={srcset}
-    sizes="(min-width: 1080px) 25vw, (min-width: 600px) 50vw, 100vw"
-    alt=""
-    width="1200"
-    height="900"
-    loading="lazy"
-    decoding="async"
-  />
+  {local
+    ? <Picture class="system__bg" src={service.photo} widths={[640, 1200]} sizes={sizes} alt="" width="1200" height="900" loading="lazy" decoding="async" />
+    : <img class="system__bg" src={src} srcset={srcset} sizes={sizes} alt="" width="1200" height="900" loading="lazy" decoding="async" />}
   <span class="system__icon"><svg aria-hidden="true"><use href={`#${service.icon}`} /></svg></span>
   <div class="system__body">
     <h3 class="system__title">{service.title}</h3>

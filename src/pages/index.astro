@@ -22,7 +22,7 @@ const faqSchema = {
     acceptedAnswer: { '@type': 'Answer', text: item.answer },
   })),
 };
-const heroPhoto = 'https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?auto=format&fit=crop&q=70';
+const heroPhoto = '/assets/img/fotos/hero-principal';
 ---
 <BaseLayout title={SITE.title} description={SITE.description} current="inicio" schema={[faqSchema]}>
   <!-- La foto principal del hero se pide de inmediato (mejora el LCP) -->
@@ -30,9 +30,10 @@ const heroPhoto = 'https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?
     slot="head"
     rel="preload"
     as="image"
+    type="image/webp"
     fetchpriority="high"
-    href={`${heroPhoto}&w=900`}
-    imagesrcset={`${heroPhoto}&w=600 600w, ${heroPhoto}&w=900 900w`}
+    href={`${heroPhoto}-900.webp`}
+    imagesrcset={`${heroPhoto}-600.webp 600w, ${heroPhoto}-900.webp 900w, ${heroPhoto}-1400.webp 1400w`}
     imagesizes="(min-width: 1080px) 36vw, 90vw"
   />
 

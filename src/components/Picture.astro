@@ -1,0 +1,25 @@
+---
+/**
+ * Foto propia en WebP con respaldo en JPEG, para que se vea en cualquier
+ * navegador (Safari/iOS anteriores a la versión 14 no muestran WebP).
+ *
+ * `src` es la ruta sin tamaño ni extensión; cada ancho de `widths` debe existir
+ * en los dos formatos: /assets/img/servicios/erp → erp-640.webp, erp-640.jpg…
+ */
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends Omit<HTMLAttributes<'img'>, 'src' | 'srcset'> {
+  src: string;
+  widths: number[];
+  alt: string;
+}
+
+const { src, widths, sizes, ...attrs } = Astro.props;
+const sorted = [...widths].sort((a, b) => a - b);
+const srcset = (ext: string) => sorted.map((w) => `${src}-${w}.${ext} ${w}w`).join(', ');
+const largest = sorted[sorted.length - 1];
+---
+<picture>
+  <source type="image/webp" srcset={srcset('webp')} sizes={sizes} />
+  <img src={`${src}-${largest}.jpg`} srcset={srcset('jpg')} sizes={sizes} {...attrs} />
+</picture>

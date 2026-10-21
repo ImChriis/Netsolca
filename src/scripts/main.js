@@ -61,8 +61,9 @@ run(pageModules);
 let swapped = false;
 document.addEventListener('astro:after-swap', () => {
   swapped = true;
-  // El router copia los atributos de <html> de la página nueva: se recupera la clase
-  document.documentElement.classList.add('js');
+  // El router copia los atributos de <html> de la página nueva: se recuperan las clases
+  // (el listener de imágenes de media.js sigue activo, así que lazy-ready es seguro)
+  document.documentElement.classList.add('js', 'lazy-ready');
 });
 document.addEventListener('astro:page-load', () => {
   if (!swapped) return; // la carga inicial ya se inició arriba

@@ -233,12 +233,15 @@ svg:has(> use) {
   translate: none;
 }
 
-/* --- Imágenes diferidas: aparecen suavemente al cargar --- */
-.js img[loading="lazy"] {
-  opacity: 0;
-  transition: opacity 0.6s ease;
-}
-.js img[loading="lazy"].is-loaded { opacity: 1; }
+/* --- <picture> no altera el diseño: el <img> interno se comporta como antes --- */
+picture { display: contents; }
+
+/* --- Imágenes diferidas: aparecen suavemente al cargar ---
+   Solo se ocultan cuando el script que las muestra ya está activo
+   (clase lazy-ready, ver js/modules/media.js). Si el JavaScript falla
+   o está bloqueado, las fotos se ven igual, sin el fundido. */
+img[loading="lazy"] { transition: opacity 0.6s ease; }
+.lazy-ready img[loading="lazy"]:not(.is-loaded) { opacity: 0; }
 
 /* --- Movimiento reducido: se respeta en todo el sitio --- */
 @media (prefers-reduced-motion: reduce) {
