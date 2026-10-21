@@ -27,7 +27,7 @@ const schema = [
           '@id': `${url}#${p.id}`,
           name: p.title,
           about: p.sector,
-          description: p.challenge,
+          description: p.problem,
           url: `${url}#${p.id}`,
           creator: { '@id': new URL('/#organizacion', site).href },
         },

@@ -137,7 +137,7 @@ export const services: Service[] = [
   {
     "id": "sistemas",
     "icon": "i-code",
-    "title": "Sistemas a la medida",
+    "title": "Desarrollo Personalizado",
     "subtitle": "El programa exacto para la forma en que trabajas",
     "summary": "Desarrollamos sistemas web y aplicaciones desde cero para automatizar tus cobros, inventario, clientes o cualquier proceso único de tu negocio.",
     "intro": "No obligues a tu empresa a adaptarse a un programa genérico. Creamos un sistema pensado exactamente para tus reglas, tu equipo y tu forma de trabajar.",
