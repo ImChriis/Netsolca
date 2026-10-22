@@ -49,18 +49,50 @@
   .btn:hover .btn__icon { transform: translateX(4px); }
 }
 
-/* Primario: verde tecnológico con texto azul (contraste 10:1) */
+/* Cada color tiene un solo significado:
+   - verde WhatsApp (--wa): el botón abre WhatsApp
+   - cian (--quote): lleva al cotizador o avanza en él
+   - azul marino (primario): cualquier otra acción principal */
+
+/* Primario: azul marino de la marca con texto blanco (contraste 16:1) */
 .btn--primary {
-  --btn-bg: var(--green-400);
-  --btn-fg: var(--navy-900);
-  --btn-bd: var(--green-400);
-  box-shadow: 0 10px 24px -12px rgb(31 203 117 / 0.9);
+  --btn-bg: var(--navy-900);
+  --btn-fg: var(--white);
+  --btn-bd: var(--navy-900);
+  box-shadow: 0 10px 24px -12px rgb(10 22 64 / 0.7);
 }
 @media (hover: hover) {
   .btn--primary:hover {
-    --btn-bg: var(--green-300);
-    --btn-bd: var(--green-300);
-    box-shadow: 0 14px 30px -12px rgb(31 203 117 / 0.95);
+    --btn-bg: var(--navy-700);
+    --btn-bd: var(--navy-700);
+  }
+}
+
+/* WhatsApp: verde oficial #43C471 con texto azul marino (contraste 7.9:1) */
+.btn--whatsapp {
+  --btn-bg: var(--wa);
+  --btn-fg: var(--navy-950);
+  --btn-bd: var(--wa);
+  box-shadow: 0 10px 24px -12px rgb(67 196 113 / 0.9);
+}
+@media (hover: hover) {
+  .btn--whatsapp:hover {
+    --btn-bg: var(--wa-hover);
+    --btn-bd: var(--wa-hover);
+  }
+}
+
+/* Cotizador: cian de la marca con texto azul marino (contraste 8.9:1) */
+.btn--quote {
+  --btn-bg: var(--quote);
+  --btn-fg: var(--navy-900);
+  --btn-bd: var(--quote);
+  box-shadow: 0 10px 24px -12px rgb(24 200 240 / 0.8);
+}
+@media (hover: hover) {
+  .btn--quote:hover {
+    --btn-bg: var(--quote-hover);
+    --btn-bd: var(--quote-hover);
   }
 }
 

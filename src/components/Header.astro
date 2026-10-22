@@ -44,14 +44,10 @@ const hrefFor = (item: (typeof NAV)[number]) => {
         ))}
       </ul>
       <span class="site-nav__indicator" aria-hidden="true"></span>
-      <a class="btn btn--primary btn--lg site-nav__cta" href={WHATSAPP_URL} data-whatsapp>
-        <svg class="btn__wa" aria-hidden="true"><use href="#i-whatsapp" /></svg>
-        Escríbenos por WhatsApp
-      </a>
     </nav>
 
     <!-- WhatsApp visible desde la primera pantalla (en móvil queda solo el icono) -->
-    <a class="btn btn--primary btn--sm site-header__cta" href={WHATSAPP_URL} data-whatsapp>
+    <a class="btn btn--whatsapp btn--sm site-header__cta" href={WHATSAPP_URL} data-whatsapp>
       <svg class="btn__wa" aria-hidden="true"><use href="#i-whatsapp" /></svg>
       <span class="site-header__cta-text">WhatsApp</span>
       <span class="sr-only"> de NETSOLCA</span>

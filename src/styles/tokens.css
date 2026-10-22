@@ -12,7 +12,11 @@
   --cyan-400: #18C8F0;   /* cian señal: sobre fondos oscuros */
   --cyan-300: #7BE2F8;
   --cyan-600: #0277A8;   /* cian para texto sobre blanco (AA) */
-  --green-400: #2FE38A;  /* CTA */
+  --green-400: #2FE38A;  /* acentos (indicadores, éxito) */
+  --wa: #43C471;         /* verde oficial de WhatsApp: solo botones que abren WhatsApp */
+  --wa-hover: #5BD186;
+  --quote: var(--cyan-400);  /* botones del cotizador */
+  --quote-hover: #52D6F5;
   --green-300: #6EF0B0;
   --green-500: #1FCB75;  /* CTA hover */
   --green-700: #0B7A44;  /* éxito sobre blanco (AA) */

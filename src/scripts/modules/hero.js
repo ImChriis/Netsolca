@@ -48,9 +48,11 @@ export function initHero() {
   }
 
   // Parallax de scroll: solo mientras el hero está en pantalla
+  // Solo con el visual al lado del texto: en una columna las capas subirían sobre los botones
+  const twoColumns = window.matchMedia('(min-width: 960px)');
   let scrollTicking = false;
   const onScroll = () => {
-    if (!inView || scrollTicking) return;
+    if (!inView || scrollTicking || !twoColumns.matches) return;
     scrollTicking = true;
     requestAnimationFrame(() => {
       visual.style.setProperty('--sy', Math.min(window.scrollY, hero.offsetHeight).toFixed(1));

@@ -445,6 +445,8 @@
 /* --- Tablet / móvil: el visual pasa debajo del texto --- */
 @media (max-width: 959.98px) {
   .hero { padding-bottom: 3rem; }
+  /* El visual queda debajo del texto: sin parallax, las capas no deben subir sobre los botones */
+  .hero-layer { transform: none; }
   .hero__grid { grid-template-columns: 1fr; gap: 3.25rem; }
   .hero__backdrop { display: none; }
   .hero__visual {

@@ -150,10 +150,10 @@
     radial-gradient(80% 70% at 100% 0%, rgb(47 227 138 / 0.22), transparent 70%),
     linear-gradient(165deg, var(--navy-800), var(--navy-950));
 }
-.channel--featured .channel__icon { background: var(--green-400); color: var(--navy-900); }
+.channel--featured .channel__icon { background: var(--wa); color: var(--navy-900); }
 .channel--featured .channel__label { color: var(--text-on-dark-muted); }
 .channel--featured .channel__value { color: var(--white); }
-.channel--featured .channel__action { color: var(--green-400); }
+.channel--featured .channel__action { color: var(--wa); }
 
 .contact__aside-title { font-size: clamp(1.8rem, 1.4rem + 1.4vw, 2.4rem); }
 .contact__info .social { margin-top: 0.25rem; }

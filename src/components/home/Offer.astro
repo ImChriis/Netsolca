@@ -1,5 +1,4 @@
 ---
-import { WHATSAPP_URL } from '../../data/site';
 ---
 <!-- ============ OFERTA: diagnóstico y asesoría ============ -->
 <section class="offer" aria-labelledby="offer-title">
@@ -21,9 +20,9 @@ import { WHATSAPP_URL } from '../../data/site';
         </div>
       </li>
     </ul>
-    <a class="btn btn--primary btn--lg" href={WHATSAPP_URL} data-whatsapp>
-      <svg class="btn__wa" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+    <a class="btn btn--primary btn--lg" href="#contacto" data-contact-prefill data-prefill-message="Hola, quiero agendar un diagnóstico gratis para mi empresa.">
       Agendar diagnóstico gratis
+      <svg class="btn__icon" aria-hidden="true"><use href="#i-trace"/></svg>
     </a>
   </div>
 </section>

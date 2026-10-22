@@ -1,5 +1,5 @@
 ---
-import { SITE, WHATSAPP_URL } from '../data/site';
+import { SITE } from '../data/site';
 import SocialLinks from './SocialLinks.astro';
 
 const year = new Date().getFullYear();
@@ -40,10 +40,6 @@ const year = new Date().getFullYear();
           <li><a href={`tel:${SITE.phoneIntl}`}>{SITE.phone}</a></li>
           <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
         </ul>
-        <a class="btn btn--primary btn--sm" href={WHATSAPP_URL} data-whatsapp>
-          <svg class="btn__wa" aria-hidden="true"><use href="#i-whatsapp"/></svg>
-          WhatsApp
-        </a>
       </div>
 
       <nav class="site-footer__col" aria-labelledby="ft-empresa">

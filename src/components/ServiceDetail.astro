@@ -1,7 +1,7 @@
 ---
 /** Ficha completa de un servicio en /servicios (ancla #id). */
 import type { Service } from '../data/services';
-import { photoSources, WHATSAPP_URL } from '../data/site';
+import { photoSources } from '../data/site';
 import Picture from './Picture.astro';
 
 interface Props {
@@ -29,11 +29,8 @@ const { src, srcset } = photoSources(service.photo, 900, 700);
     </ul>
     <p class="detail__ideal"><strong>Ideal si:</strong> {service.idealFor}</p>
     <div class="detail__actions">
-      <a class="btn btn--primary" href={WHATSAPP_URL} data-whatsapp>
-        <svg class="btn__wa" aria-hidden="true"><use href="#i-whatsapp" /></svg>
-        Solicitar diagnóstico gratis
-      </a>
-      <a class="link-trace" href="/#cotizar">Cotizar <svg class="link-trace__icon" aria-hidden="true"><use href="#i-trace" /></svg></a>
+      <a class="btn btn--quote" href="/#cotizar">Cotizar este servicio</a>
+      <a class="link-trace" href="/contacto#formulario">Solicitar diagnóstico gratis <svg class="link-trace__icon" aria-hidden="true"><use href="#i-trace" /></svg></a>
     </div>
   </div>
 </article>

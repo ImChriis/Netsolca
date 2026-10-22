@@ -96,7 +96,6 @@
     opacity var(--dur);
 }
 
-.site-nav__cta { display: none; }
 
 .site-header__cta { flex: none; }
 
@@ -143,8 +142,9 @@
 
 /* --- Tablet y móvil: menú desplegable --- */
 @media (max-width: 1099.98px) {
-  .menu-toggle { display: inline-grid; }
-  .site-header__cta { margin-left: auto; }
+  .menu-toggle { display: inline-grid; margin-left: auto; }
+  /* En tablet y móvil el contacto lo cubre el botón flotante */
+  .site-header__cta { display: none; }
 
   .site-nav {
     position: fixed;
@@ -200,13 +200,9 @@
     box-shadow: 0 0 0 4px rgb(2 119 168 / 0.15);
   }
   .site-nav__indicator { display: none; }
-  .site-nav__cta { display: inline-flex; align-self: stretch; }
 }
 
 @media (max-width: 559.98px) {
-  .site-header__cta { width: 44px; min-height: 44px; padding: 0; border-radius: 50%; }
-  .site-header__cta-text { display: none; }
-  .site-header__cta .btn__wa { width: 22px; height: 22px; }
   .site-header__brand img { height: 30px; }
   .site-header.is-scrolled .site-header__brand img { height: 27px; }
 }

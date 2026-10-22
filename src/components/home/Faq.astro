@@ -1,7 +1,6 @@
 ---
 /** Preguntas frecuentes (acordeón). Los mismos datos generan el FAQPage del SEO. */
 import { faq } from '../../data/faq';
-import { WHATSAPP_URL } from '../../data/site';
 ---
 <!-- ============ PREGUNTAS FRECUENTES ============ -->
 <section class="section faq" id="preguntas" aria-labelledby="faq-title" data-section="contacto">
@@ -9,10 +8,6 @@ import { WHATSAPP_URL } from '../../data/site';
     <header class="faq__intro" data-reveal>
       <h2 class="section-title" id="faq-title">Lo que suelen preguntarnos</h2>
       <p class="section-lead">¿Te queda alguna duda? Escríbenos, respondemos a cualquier hora.</p>
-      <a class="btn btn--outline" href={WHATSAPP_URL} data-whatsapp>
-        <svg class="btn__wa" aria-hidden="true"><use href="#i-whatsapp" /></svg>
-        Preguntar por WhatsApp
-      </a>
     </header>
 
     <div class="accordion" data-accordion="single" data-reveal>

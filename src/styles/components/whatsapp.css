@@ -1,6 +1,7 @@
 /* =========================================================
    Botón flotante de WhatsApp
-   Verde de marca con glifo azul: mantiene contraste AA (9:1).
+   Verde oficial de WhatsApp con glifo azul (contraste 7.9:1).
+   Solo en tablet y móvil: en escritorio el header ya muestra el botón.
    ========================================================= */
 .wa-float {
   position: fixed;
@@ -12,7 +13,7 @@
   height: 60px;
   padding: 0 17px;
   border-radius: 999px;
-  background: var(--green-400);
+  background: var(--wa);
   color: var(--navy-900);
   text-decoration: none;
   box-shadow: 0 14px 30px -10px rgb(10 22 64 / 0.45), 0 0 0 4px rgb(255 255 255 / 0.9);
@@ -37,3 +38,6 @@
 
 /* Se oculta con el menú móvil abierto */
 html.menu-open .wa-float { opacity: 0; visibility: hidden; }
+@media (min-width: 1100px) {
+  .wa-float { display: none; }
+}
