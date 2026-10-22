@@ -88,3 +88,5 @@
   .site-footer__top { grid-template-columns: 1fr; }
   .site-footer__bottom { padding-bottom: 6.5rem; } /* espacio para el botón de WhatsApp */
 }
+
+.site-footer__col a.site-footer__more { color: var(--cyan-300); font-weight: 600; }

@@ -1,6 +1,9 @@
 ---
 import { SITE } from '../data/site';
 import SocialLinks from './SocialLinks.astro';
+import { services } from '../data/services';
+
+const footerServices = services.filter((service) => service.featuredInFooter);
 
 const year = new Date().getFullYear();
 ---
@@ -19,16 +22,8 @@ const year = new Date().getFullYear();
       <div class="site-footer__col">
         <h2 class="site-footer__heading">Servicios</h2>
         <ul role="list">
-          <li><a href="/servicios#erp">ERP</a></li>
-          <li><a href="/servicios#paginas">Páginas web</a></li>
-          <li><a href="/servicios#tiendas">Tiendas en línea</a></li>
-          <li><a href="/servicios#sistemas">Desarrollo Personalizado</a></li>
-          <li><a href="/servicios#mantenimiento">Mantenimiento de equipos</a></li>
-          <li><a href="/servicios#soporte">Soporte Técnico Remoto</a></li>
-          <li><a href="/servicios#sistemas-administrativos">Sistemas administrativos</a></li>
-          <li><a href="/servicios#redes">Redes y equipos</a></li>
-          <li><a href="/servicios#cursos-programacion">Cursos de programación</a></li>
-          <li><a href="/servicios#redes-sociales">Manejo de redes sociales</a></li>
+          {footerServices.map((service) => <li><a href={`/servicios#${service.id}`}>{service.title}</a></li>)}
+          <li><a class="site-footer__more" href="/servicios">Ver todos los servicios →</a></li>
         </ul>
       </div>
 

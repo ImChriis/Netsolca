@@ -20,6 +20,8 @@ export interface Service {
   photoAlt?: string;
   group: 'sistemas' | 'presencia';
   featuredOnHome: boolean;
+  /** Aparece en la columna "Servicios" del pie de página (máximo 4 o 5) */
+  featuredInFooter?: boolean;
 }
 
 export const services: Service[] = [
@@ -98,6 +100,7 @@ export const services: Service[] = [
   // },
   {
     "id": "paginas",
+    "featuredInFooter": true,
     "icon": "i-browser",
     "title": "Páginas web",
     "subtitle": "Tu empresa en internet",
@@ -117,6 +120,7 @@ export const services: Service[] = [
   },
   {
     "id": "tiendas",
+    "featuredInFooter": true,
     "icon": "i-cart",
     "title": "Tiendas en línea",
     "subtitle": "Vende las 24 horas",
@@ -136,6 +140,7 @@ export const services: Service[] = [
   },
   {
     "id": "sistemas",
+    "featuredInFooter": true,
     "icon": "i-code",
     "title": "Desarrollo Personalizado",
     "subtitle": "El programa exacto para la forma en que trabajas",
@@ -155,6 +160,7 @@ export const services: Service[] = [
   },
   {
     "id": "soporte",
+    "featuredInFooter": true,
     "icon": "i-headset",
     "title": "Soporte Técnico Remoto",
     "subtitle": "Soluciones rápidas en tu computadora sin importar dónde estés",
