@@ -12,7 +12,7 @@ export interface Service {
   includes: string[];
   idealFor: string;
   /**
-   * Foto propia sin extensión: /assets/img/servicios/erp → erp-640.webp y erp-1200.webp (4:3).
+   * Foto propia sin extensión: /assets/img/servicios/erp → erp-640, erp-800 y erp-1200, en .webp y .jpg (4:3).
    * También acepta el id de una foto de Unsplash.
    */
   photo: string;

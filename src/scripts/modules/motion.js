@@ -1,32 +1,20 @@
+import anime from 'animejs';
 import { $, $$, onPageLeave, pageSignal, prefersReducedMotion } from './utils.js';
 
 /**
- * Animaciones con Anime.js (v3, cargado bajo demanda desde cdnjs):
+ * Animaciones con Anime.js (v3, incluido en el bundle del sitio):
  *  1. "Así trabajamos": la traza se dibuja, cada paso se enciende al pasar
  *     la línea y luego un paquete de luz la recorre en bucle.
  *  2. Maqueta del inicio: el sistema "trabaja" solo (pedidos que suben,
  *     barras que cambian, facturas que se cobran).
- * Si la librería no carga o se pide movimiento reducido, el sitio queda
- * igual que antes (las transiciones CSS siguen funcionando).
+ * Si se pide movimiento reducido, el sitio queda igual que antes
+ * (las transiciones CSS siguen funcionando).
  */
-const ANIME_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js';
 const MOBILE = window.matchMedia('(max-width: 759.98px)');
 
 const rand = (min, max) => Math.round(min + Math.random() * (max - min));
 const clampNum = (v, min, max) => Math.min(max, Math.max(min, v));
 
-/** @type {Promise<any> | null} */
-let animePromise = null;
-function loadAnime() {
-  if (window.anime) return Promise.resolve(window.anime);
-  animePromise ??= new Promise((resolve, reject) => {
-    const script = Object.assign(document.createElement('script'), { src: ANIME_SRC, async: true, crossOrigin: 'anonymous' });
-    script.addEventListener('load', () => (window.anime ? resolve(window.anime) : reject(new Error('Anime.js no disponible'))));
-    script.addEventListener('error', () => reject(new Error('No se pudo cargar Anime.js')));
-    document.head.append(script);
-  });
-  return animePromise;
-}
 
 /**
  * Ejecuta `onEnter`/`onLeave` cuando el elemento entra o sale de pantalla.
@@ -231,11 +219,7 @@ function initLiveMockup(anime) {
 /** Inicializa las animaciones avanzadas (si el usuario no pidió movimiento reducido). */
 export function initMotion() {
   if (prefersReducedMotion() || !('IntersectionObserver' in window)) return;
-  loadAnime()
-    .then((anime) => {
-      document.documentElement.classList.add('has-motion-lib');
-      initProcess(anime);
-      initLiveMockup(anime);
-    })
-    .catch((error) => console.warn('[animaciones]', error.message));
+  document.documentElement.classList.add('has-motion-lib');
+  initProcess(anime);
+  initLiveMockup(anime);
 }

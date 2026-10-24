@@ -15,7 +15,7 @@ const { src, srcset } = photoSources(service.photo, 900, 700);
 <article class="detail" id={service.id} aria-labelledby={`${service.id}-title`}>
   <figure class="detail__media">
     {local
-      ? <Picture src={service.photo} widths={[640, 1200]} sizes="(min-width: 860px) 45vw, 100vw" alt={service.photoAlt ?? ''} width="1200" height="900" loading="lazy" decoding="async" />
+      ? <Picture src={service.photo} widths={[640, 800, 1200]} sizes="(min-width: 860px) 45vw, 100vw" alt={service.photoAlt ?? ''} width="1200" height="900" loading="lazy" decoding="async" />
       : <img src={src} srcset={srcset} sizes="(min-width: 860px) 45vw, 100vw" alt={service.photoAlt ?? ''} width="1200" height="900" loading="lazy" decoding="async" />}
   </figure>
   <div class="detail__body">

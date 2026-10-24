@@ -12,7 +12,10 @@ export interface Project {
   solution: string[];
   status?: "En desarrollo" | "En producción" | "Finalizado";
   results: string;
-  /** Id de la foto en Unsplash, o una ruta propia que empiece por "/" (ej. /assets/img/proyectos/x.jpg) */
+  /**
+   * Id de la foto en Unsplash, o una ruta propia sin tamaño ni extensión:
+   * /assets/img/proyectos/x → x-720 y x-1200, cada una en .webp y .jpg
+   */
   photo: string;
   alt: string;
 }
@@ -121,7 +124,7 @@ export const projects: Project[] = [
         "Envío automático de recibos digitales por correo"
       ],
       "results": "Automatización total de la cobranza y entrega inmediata de comprobantes a cada estudiante.",
-      "photo": "/assets/img/proyectos/grados.jpg",
+      "photo": "/assets/img/proyectos/grados",
       "alt": "Birrete y documentos de graduación sobre una mesa"
     },
     { 
@@ -137,7 +140,7 @@ export const projects: Project[] = [
       "App móvil exclusiva para escanear y validar accesos en puerta de forma segura"
     ],
     "results": "Validación de entradas 100% digital desde dispositivos móviles, eliminando duplicados y agilizando el ingreso en la puerta.",
-    "photo": "/assets/img/proyectos/catedra.jpg",
+    "photo": "/assets/img/proyectos/catedra",
     "alt": "Persona escaneando un código QR con un teléfono en un evento"
   },
   {
@@ -153,7 +156,7 @@ export const projects: Project[] = [
       "Generación de reportes claros para la administración del negocio"
     ],
     "results": "Orden total en la recepción de pedidos, control exacto de los ingresos y una tienda abierta las 24 horas para los clientes.",
-    "photo": "/assets/img/proyectos/almendra.jpeg",
+    "photo": "/assets/img/proyectos/almendra",
     "alt": "Hermoso arreglo floral y caja de regalo sobre una mesa"
   },
   {
@@ -169,7 +172,7 @@ export const projects: Project[] = [
       "Panel administrativo centralizado para inscripciones, pagos y estadísticas"
     ],
     "results": "Automatización de la operatividad deportiva, control centralizado de los torneos y una gestión profesional para la academia.",
-    "photo": "/assets/img/proyectos/nextgen.jpeg",
+    "photo": "/assets/img/proyectos/nextgen",
     "alt": "Cancha de fútbol iluminada lista para un torneo"
   },
   {
@@ -185,7 +188,7 @@ export const projects: Project[] = [
       "Aplicación móvil exclusiva para escanear y validar entradas de forma rápida en la puerta"
     ],
     "results": "Automatización completa del proceso de venta y control de acceso 100% seguro sin filas largas ni listas de papel.",
-    "photo": "/assets/img/proyectos/eventos.jpeg",
+    "photo": "/assets/img/proyectos/eventos",
     "alt": "Teléfono inteligente mostrando un código QR en la entrada de un evento"
   },
   {
@@ -201,7 +204,7 @@ export const projects: Project[] = [
       "Panel gerencial con reportes en tiempo real y acceso seguro 24/7 desde cualquier dispositivo"
     ],
     "results": "Desarrollo de una solución propia y escalable para unificar toda la operatividad de una empresa en una sola plataforma.",
-    "photo": "/assets/img/proyectos/netsolca.jpg",
+    "photo": "/assets/img/proyectos/netsolca",
     "alt": "Arquitectura de software y panel de control del ERP en desarrollo"
   },
 ];

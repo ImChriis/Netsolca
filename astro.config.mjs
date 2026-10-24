@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 /**
@@ -24,6 +24,30 @@ export default defineConfig({
     inlineStylesheets: 'auto',
   },
   compressHTML: true,
+  // Fuentes de Google descargadas en el build y servidas desde el propio sitio
+  // (sin peticiones a fonts.googleapis.com que bloqueen el primer pintado)
+  fonts: [
+    {
+      provider: fontProviders.google(),
+      name: 'Instrument Sans',
+      cssVariable: '--font-instrument',
+      weights: ['400 700'],
+      styles: ['normal'],
+      subsets: ['latin'],
+      fallbacks: ['Segoe UI', 'system-ui', 'sans-serif'],
+    },
+    {
+      provider: fontProviders.google(),
+      name: 'Saira',
+      cssVariable: '--font-saira',
+      weights: ['600 800'],
+      styles: ['normal'],
+      subsets: ['latin'],
+      fallbacks: ['Segoe UI', 'system-ui', 'sans-serif'],
+      // Ancho variable: los títulos usan font-stretch 104% y 108%
+      options: { experimental: { variableAxis: { wdth: [['100', '110']] } } },
+    },
+  ],
   integrations: [
     sitemap({
       filter: (page) => !page.includes('/404'),

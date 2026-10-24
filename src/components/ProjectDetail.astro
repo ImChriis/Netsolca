@@ -2,6 +2,7 @@
 /** Ficha completa de un proyecto en /proyectos (ancla #id). */
 import type { Project } from '../data/projects';
 import { photoUrl } from '../data/site';
+import Picture from './Picture.astro';
 
 interface Props {
   project: Project;
@@ -10,7 +11,9 @@ const { project } = Astro.props;
 ---
 <article class="detail detail--project" id={project.id} aria-labelledby={`${project.id}-title`}>
   <figure class="detail__media">
-    <img src={photoUrl(project.photo, 900, 700)} alt={project.alt} width="900" height="700" loading="lazy" decoding="async" />
+    {project.photo.startsWith('/')
+      ? <Picture src={project.photo} widths={[720, 1200]} sizes="(min-width: 860px) 45vw, 100vw" alt={project.alt} width="900" height="700" loading="lazy" decoding="async" />
+      : <img src={photoUrl(project.photo, 900, 700)} alt={project.alt} width="900" height="700" loading="lazy" decoding="async" />}
   </figure>
   <div class="detail__body">
     <p class="detail__sub">{project.sector}</p>

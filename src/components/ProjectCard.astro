@@ -2,16 +2,20 @@
 /** Tarjeta de proyecto: foto, sector, título y "Ver más". */
 import type { Project } from '../data/projects';
 import { photoUrl } from '../data/site';
+import Picture from './Picture.astro';
 
 interface Props {
   project: Project;
   href: string;
 }
 const { project, href } = Astro.props;
+const sizes = '(min-width: 900px) 33vw, (min-width: 560px) 50vw, 100vw';
 ---
 <li class="project">
   <a class="project__media" href={href} tabindex="-1" aria-hidden="true">
-    <img src={photoUrl(project.photo, 720, 480, 70)} alt={project.alt} width="720" height="480" loading="lazy" decoding="async" />
+    {project.photo.startsWith('/')
+      ? <Picture src={project.photo} widths={[720, 1200]} sizes={sizes} alt={project.alt} width="720" height="480" loading="lazy" decoding="async" />
+      : <img src={photoUrl(project.photo, 720, 480, 70)} alt={project.alt} width="720" height="480" loading="lazy" decoding="async" />}
   </a>
   <p class="project__sector">{project.sector}</p>
   <h3 class="project__title">{project.title}</h3>

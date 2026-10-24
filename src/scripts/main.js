@@ -42,19 +42,22 @@ const pageModules = [
   ['motion', () => initMotion()],
 ];
 
+/** Cede el hilo principal: cada módulo corre en su propia tarea corta (mejor TBT/INP) */
+const nextTask = () => new Promise((resolve) => setTimeout(resolve, 0));
+
 /** @param {Array<[name: string, init: () => void]>} modules */
-const run = (modules) => {
+const run = async (modules) => {
   for (const [name, init] of modules) {
     try {
       init();
     } catch (error) {
       console.error(`[netsolca] No se pudo iniciar el módulo "${name}":`, error);
     }
+    await nextTask();
   }
 };
 
-run([['header', () => initHeader()]]);
-run(pageModules);
+run([['header', () => initHeader()], ...pageModules]);
 
 // Tras cada navegación del ClientRouter: se limpia la página anterior y se
 // inician los módulos sobre el contenido nuevo.

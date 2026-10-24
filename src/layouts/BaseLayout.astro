@@ -11,6 +11,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
 import { ClientRouter, fade } from 'astro:transitions';
+import { Font } from 'astro:assets';
 
 interface Props {
   title?: string;
@@ -31,23 +32,20 @@ const { current, subpage = false, ...seo } = Astro.props;
   <head>
     <SEO {...seo} />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Saira:wdth,wght@100..110,600..800&display=swap" />
+    <Font cssVariable="--font-instrument" preload />
+    <Font cssVariable="--font-saira" preload />
     <slot name="head" />
 
     <!-- Loader: solo en la primera visita de la sesión y sin "reducir movimiento" (respaldo de 7 s) -->
     <script is:inline>
       (() => {
         try {
-          const html = document.documentElement;
-          if (sessionStorage.getItem('netsolca-loader') || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          const html = document.documentElement;          if (sessionStorage.getItem('netsolca-loader') || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
           html.classList.add('is-loading');
           setTimeout(() => html.classList.remove('is-loading'), 7000);
         } catch { /* sin sessionStorage: se omite el loader */ }
       })();
     </script>
-    <script is:inline defer src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
   
     <ClientRouter/>
   

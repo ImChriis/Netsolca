@@ -1,3 +1,4 @@
+import anime from 'animejs';
 import { $, wait } from './utils.js';
 
 const MIN_MS = 2400;   // desde el inicio de la navegación: la N termina de dibujarse
@@ -23,7 +24,6 @@ export function initLoader() {
     return;
   }
 
-  const anime = window.anime;
   const panel = $('.loader__panel', el);
   const mark = $('.loader__mark', el);
   const bar = $('[data-loader-bar]', el);

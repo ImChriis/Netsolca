@@ -35,8 +35,9 @@
   --text-on-dark-muted: #A9B8D6;
 
   /* --- Tipografía --- */
-  --font-display: "Saira", "Segoe UI", system-ui, sans-serif;
-  --font-body: "Instrument Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  /* --font-saira y --font-instrument los define <Font /> (astro.config.mjs → fonts) */
+  --font-display: var(--font-saira);
+  --font-body: var(--font-instrument);
 
   --fs-xs: 0.8125rem;
   --fs-sm: 0.9375rem;
