@@ -6,7 +6,7 @@ export const SITE = {
   taxId: 'J-410000236',
   title: 'NETSOLCA | Sistemas web a la medida en Maracaibo, Venezuela',
   description:
-    'Desarrollamos sistemas web, ERP, MRP y CRM, páginas y tiendas en línea para empresas, desde Maracaibo, Venezuela. Más de 20 años de trayectoria y atención 24/7.',
+    'Creamos sistemas web, ERP, MRP y CRM, páginas y tiendas en línea para empresas en Maracaibo, Venezuela. Más de 20 años de trayectoria y atención 24/7.',
   locale: 'es_VE',
   lang: 'es',
   themeColor: '#0A1640',

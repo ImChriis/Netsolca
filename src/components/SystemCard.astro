@@ -19,8 +19,8 @@ const sizes = '(min-width: 1080px) 25vw, (min-width: 600px) 50vw, 100vw';
 ---
 <li class="system">
   {local
-    ? <Picture class="system__bg" src={service.photo} widths={[640, 1200]} sizes={sizes} alt="" width="1200" height="900" loading="lazy" decoding="async" />
-    : <img class="system__bg" src={src} srcset={srcset} sizes={sizes} alt="" width="1200" height="900" loading="lazy" decoding="async" />}
+    ? <Picture class="system__bg" src={service.photo} widths={[640, 1200]} sizes={sizes} alt={service.photoAlt ?? ''} width="1200" height="900" loading="lazy" decoding="async" />
+    : <img class="system__bg" src={src} srcset={srcset} sizes={sizes} alt={service.photoAlt ?? ''} width="1200" height="900" loading="lazy" decoding="async" />}
   <span class="system__icon"><svg aria-hidden="true"><use href={`#${service.icon}`} /></svg></span>
   <div class="system__body">
     <h3 class="system__title">{service.title}</h3>

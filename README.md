@@ -38,7 +38,7 @@ netsolca-astro/
 │   │   └── faq.ts          Preguntas frecuentes (también generan datos para Google)
 │   ├── components/         Header, Footer, Loader, SEO, tarjetas… y home/ (secciones del inicio)
 │   ├── layouts/            BaseLayout (páginas) y LegalLayout (páginas legales)
-│   ├── pages/              Una ruta por archivo + robots.txt.ts
+│   ├── pages/              Una ruta por archivo + robots.txt.ts y llms.txt.ts
 │   ├── scripts/            JavaScript del sitio (animaciones, cotizador, mapa, formulario…)
 │   │   └── config.js       ← Número de WhatsApp y punto del mapa
 │   └── styles/             CSS (global.css importa todo en orden)
@@ -56,6 +56,7 @@ netsolca-astro/
 | `/contacto`    | `src/pages/contacto.astro` |
 | `/aviso-legal`, `/privacidad`, `/terminos` | páginas legales |
 | `/robots.txt`  | `src/pages/robots.txt.ts`  |
+| `/llms.txt`    | `src/pages/llms.txt.ts`    |
 | `/sitemap-index.xml` | generado por `@astrojs/sitemap` |
 | cualquier otra | `src/pages/404.astro`      |
 
@@ -72,6 +73,7 @@ netsolca-astro/
   - Nosotros: `AboutPage`. Contacto: `ContactPage`.
   - Legales: `BreadcrumbList`.
 - **robots.txt** con la dirección del sitemap.
+- **llms.txt** para asistentes de IA: resumen, páginas, servicios, preguntas frecuentes y contacto, generado desde `src/data/`.
 - **sitemap-index.xml** con URLs limpias, prioridad y fecha de actualización. La página 404 queda excluida.
 - **Rendimiento:**
   - HTML comprimido.
